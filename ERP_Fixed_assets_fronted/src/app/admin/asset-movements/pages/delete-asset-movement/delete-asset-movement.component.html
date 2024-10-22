@@ -1,0 +1,44 @@
+<div class="container">
+  <h3 mat-dialog-title>Are you sure?</h3>
+  <div mat-dialog-content>
+    <div class="row">
+      <!--Gift Icon-->
+      <div class="col text-center">
+        <i class="far fa-times-circle fa-6x col-red"></i>
+      </div>
+      <!--Modal Text-->
+      <div class="col-12">
+        <dl class="dl-horizontal">
+          <dt class="pull-left me-2">Schedule Item ID:</dt>
+          <dd>{{ assetMovement.id }}</dd>
+          <dt class="pull-left me-2"> Fixed Asset Movement Schedule Item :</dt>
+          <dd>{{ assetMovement.scheduleItem }}</dd>
+          <dt class="pull-left me-2">Land :</dt>
+          <dd>{{ assetMovement.land }}</dd>
+          <dt class="pull-left me-2">Buildings :</dt>
+          <dd>{{ assetMovement.buildings }}</dd>
+          <dt class="pull-left me-2">Computers :</dt>
+          <dd>{{ assetMovement.computers }}</dd>
+          <dt class="pull-left me-2">Furniture :</dt>
+          <dd>{{ assetMovement.furniture }}</dd>
+          <dt class="pull-left me-2">Vehicles :</dt>
+          <dd>{{ assetMovement.vehicles }}</dd>
+          <dt class="pull-left me-2">Equipment :</dt>
+          <dd>{{ assetMovement.equipment }}</dd>
+          <dt class="pull-left me-2">Current Assets :</dt>
+          <dd>{{ assetMovement.currentAssets }}</dd>
+          <dt class="pull-left me-2">Biological Assets :</dt>
+          <dd>{{ assetMovement.biologicalAssets }}</dd>
+          <dt class="pull-left me-2">Total :</dt>
+          <dd>{{ assetMovement.total }}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end" class="mb-1">
+    <button mat-flat-button color="warn" (click)="confirmDelete()">
+      Delete
+    </button>
+    <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+  </mat-dialog-actions>
+</div>

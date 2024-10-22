@@ -1,0 +1,171 @@
+<section class="content">
+	<div class="content-block">
+		<div class="block-header">
+			<!-- breadcrumb -->
+			<app-breadcrumb [title]="'Lessor Details'" [items]="['Home', 'Lessor']" [active_item]="'Lessor Details'">
+			</app-breadcrumb>
+		</div>
+		<app-widgets></app-widgets>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+				<div class="card" *ngIf="loading">
+					<div class="d-flex justify-content-center">
+						<img src="assets/images/spinner.gif" style="display: block; margin: auto; width: 200px" />
+					</div>
+				</div>
+
+				<div class="card" *ngIf="!loading">
+					<div class="body">
+						<h5 class="b-b p-10 text-strong">Actions on Lessor</h5>
+						<br />
+						<div class="row">
+							<div class="col-xs-3 col-sm-12 col-md-12 col-lg-3">
+								<a>
+									<button style="width: 100%" type="button" class="btn btn-sm btn-primary"
+										(click)="openRevaluate()">
+										Add
+									</button>
+								</a>
+							</div>
+							<div class="col-xs-3 col-sm-12 col-md-12 col-lg-3">
+								<a>
+									<button style="width: 100%" type="button" class="btn btn-sm btn-success"
+										(click)="openTransfer()">
+										Modify
+									</button>
+								</a>
+							</div>
+							<div class="col-xs-3 col-sm-12 col-md-12 col-lg-3">
+								<a>
+									<button style="width: 100%" type="button" class="btn btn-sm btn-warning"
+										(click)="openDispose()">
+										Verify
+									</button>
+								</a>
+							</div>
+							<div class="col-xs-3 col-sm-12 col-md-12 col-lg-3">
+								<a>
+									<button style="width: 100%" type="button" class="btn btn-sm btn-danger"
+										(click)="openWriteOff()">
+										Delete
+									</button>
+								</a>
+							</div>
+						</div>
+						<br />
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+				<div class="card" *ngIf="loading">
+					<div class="d-flex justify-content-center">
+						<img src="assets/images/spinner.gif" style="display: block; margin: auto; width: 200px" />
+					</div>
+				</div>
+				<div class="card" *ngIf="!loading">
+					<div class="boxs mail_listing">
+						<div class="row justify-content-between mt-4 mx-3">
+							<div class="col-6">
+								<button mat-flat-button color="primary" (click)="openQRCode()" class="btn-block">
+									<i class="fas fa-qrcode"></i> View QR-code
+								</button>
+							</div>
+							<div class="col-6">
+								<button mat-flat-button class="btn-success btn-block" style="margin-left: 12px;">
+									<i class="material-icons">picture_as_pdf</i> Export to PDF
+								</button>
+							</div>
+						</div>
+						<div class="row justify-content-between mt-2 mx-3">
+							<div class="col-6">
+								<h5 class="my-2">Lessor Information</h5>
+							</div>
+							<div class="col-6 text-right">
+								<h5 class="my-2">Lessor Document Information</h5>
+							</div>
+						</div>
+						<div class="row justify-content-center mt-1">
+							<div class="col-lg-6">
+								<div class="body">
+									<table class="table table-responsive">
+										<thead class="thead-light">
+											<tr>
+												<th colspan="3">Lessor Details</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Business Category</td>
+												<td>:</td>
+												<td class="text-primary font-weight-bold">{{
+													this.lessorData.businessCategory }}</td>
+											</tr>
+											<tr>
+												<td>Lessor Code</td>
+												<td>:</td>
+												<td class="text-primary font-weight-bold">{{ this.lessorData.lessorCode
+													}}</td>
+											</tr>
+											<tr>
+												<td>Lessor Name</td>
+												<td>:</td>
+												<td class="text-primary font-weight-bold">{{ this.lessorData.lessorName
+													}}</td>
+											</tr>
+											<tr>
+												<td>Lessor KRA PIN</td>
+												<td>:</td>
+												<td class="text-primary font-weight-bold">{{
+													this.lessorData.lessorKraPin }}</td>
+											</tr>
+											<tr>
+												<td>Phone/Mobile Number</td>
+												<td>:</td>
+												<td class="text-primary font-weight-bold">{{ this.lessorData.phoneNo }}
+												</td>
+											</tr>
+											<tr>
+												<td>Email Address</td>
+												<td>:</td>
+												<td class="text-primary font-weight-bold">{{
+													this.lessorData.emailAddress }}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="body">
+									<table class="table table-responsive">
+										<thead class="thead-light">
+											<tr>
+												<th colspan="3">Document Details</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Document Registration Number</td>
+												<td>:</td>
+												<td class="text-primary font-weight-bold">{{ this.lessorData.regDocNo }}
+												</td>
+											</tr>
+											<tr>
+												<td>Document</td>
+												<td>:</td>
+												<td class="text-primary font-weight-bold">
+													<img [src]="this.lessorData.regDocImage"
+														class="col-md-8 img-preview">
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

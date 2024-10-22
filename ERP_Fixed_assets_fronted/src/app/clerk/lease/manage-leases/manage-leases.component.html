@@ -1,0 +1,887 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Manage Leases'" [items]="['Leases']" [active_item]="'Manage Leases'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <div class="row">
+              <h2>{{ pageFunction }} Lease</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <!-- <div style="float: right; margin-right: 35px;">
+                <button mat-raised-button color="primary" (click)="import()"><i
+                    class="fas fa-file-import fa-sm text-white-50"></i> import data from excel</button>
+                
+              </div> -->
+            </div>
+          </div>
+          <!-- Main fields -->
+          <div class="body" *ngIf="showForm">
+            <mat-horizontal-stepper [linear]="isLinear" #stepper>
+              <mat-step [stepControl]="genForm">
+
+                <form [formGroup]="genForm">
+                  <ng-template matStepLabel>General Details</ng-template>
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Lease Type</mat-label>
+                        <mat-select formControlName="leaseType" required (selectionChange)="getCategory($event)">
+                          <mat-option *ngFor="let type of leaseTypes" [value]="type.name">{{ type.name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="genForm.get('leaseType').hasError('required')">Lease Type is
+                          required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>BusinessCategory</mat-label>
+                        <mat-select formControlName="businessCategory" required>
+                          <mat-option *ngFor="let type of businessCategories" [value]="type.name">{{ type.name
+                            }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="genForm.get('businessCategory').hasError('required')">Business Category is
+                          required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>paymentTiming</mat-label>
+                        <mat-select formControlName="paymentTiming" required>
+                          <mat-option *ngFor="let paymentTiming of paymentTimings" [value]="paymentTiming.value">{{
+                            paymentTiming.name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="genForm.get('paymentTiming').hasError('required')">Payment Timing is
+                          required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Lessor Code</mat-label>
+                        <input matInput formControlName="lessorCode" required />
+                        <mat-icon matSuffix (click)="lessorsLookup()" style="cursor: pointer;">search</mat-icon>
+                        <mat-error *ngIf="genForm.get('lessorCode').hasError('required')">Lessor Code is
+                          required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Lease Term</mat-label>
+                        <input matInput formControlName="leaseTerm" type="number" required />
+                        <mat-error *ngIf="genForm.get('leaseTerm').hasError('required')">Lease Term is
+                          required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Start Date</mat-label>
+                        <input matInput [matDatepicker]="startDatePicker" formControlName="startDate" required />
+                        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startDatePicker></mat-datepicker>
+                        <mat-error *ngIf="genForm.get('startDate').hasError('required')">Start Date is
+                          required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="endDatePicker" formControlName="endDate" required />
+                        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endDatePicker></mat-datepicker>
+                        <mat-error *ngIf="genForm.get('endDate').hasError('required')">End Date is required</mat-error>
+                      </mat-form-field>
+                    </div> -->
+                  </div>
+
+                  <!-- Other  -->
+                </form>
+
+                <form [formGroup]="landForm">
+                  <!-- land -->
+                  <div class="row" *ngIf="landSelected">
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Acreage (Size in Acres)</mat-label>
+                        <input matInput formControlName="acreage" />
+                        <mat-error *ngIf="landForm.get('acreage').hasError('required')">
+                          Acreage is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Location (Address)</mat-label>
+                        <input matInput formControlName="location" />
+                        <mat-error *ngIf="landForm.get('location').hasError('required')">
+                          Location is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Coordinates</mat-label>
+                        <input matInput formControlName="coordinates" />
+                        <mat-error *ngIf="
+                            landForm.get('coordinates').hasError('required')
+                          ">
+                          Coordinates are required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Land Registration Number</mat-label>
+                        <input matInput formControlName="landRegNo" />
+                        <mat-error *ngIf="landForm.get('landRegNo').hasError('required')">
+                          Land Registration Number is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Land utilization</mat-label>
+                        <mat-select formControlName="utilizationLand">
+                          <mat-option value="Agriculture">Agriculture</mat-option>
+                          <mat-option value="Commercial Hub">Commercial Hub</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                            landForm.get('utilizationLand').hasError('required')
+                          ">
+                          Land utilization is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Layout (Area Map Image)</mat-label>
+                        <input matInput formControlName="layout" />
+                        <mat-error *ngIf="landForm.get('layout').hasError('required')">
+                          Layout is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+
+                <form [formGroup]="buildingForm">
+                  <!-- building -->
+                  <div class="row" *ngIf="buildSelected">
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Building Name</mat-label>
+                        <input matInput formControlName="buildingName" />
+                        <mat-error *ngIf="
+                            buildingForm
+                              .get('buildingName')
+                              .hasError('required')
+                          ">
+                          Building Name is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Building Address</mat-label>
+                        <input matInput formControlName="buildingAddress" />
+                        <mat-error *ngIf="
+                            buildingForm
+                              .get('buildingAddress')
+                              .hasError('required')
+                          ">
+                          Building Address is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Building Location (Coordinates)</mat-label>
+                        <input matInput formControlName="buildingLocation" />
+                        <mat-error *ngIf="
+                            buildingForm
+                              .get('buildingLocation')
+                              .hasError('required')
+                          ">
+                          Building Location is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Floor Space (Sq Ft)</mat-label>
+                        <input matInput formControlName="floorSpace" />
+                        <mat-error *ngIf="
+                            buildingForm.get('floorSpace').hasError('required')
+                          ">
+                          Floor Space is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Utilization</mat-label>
+                        <mat-select formControlName="utilizationBuilding">
+                          <mat-option value="Warehouse">Warehouse</mat-option>
+                          <mat-option value="Office Space">Office Space</mat-option>
+                          <mat-option value="Commercial Space">Commercial Space</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                            buildingForm.get('utilizationBuilding').hasError('required')
+                          ">
+                          Building Utilization is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Building Layout (Image)</mat-label>
+                        <input matInput formControlName="buidingLayout" />
+                        <mat-error *ngIf="
+                            buildingForm
+                              .get('buidingLayout')
+                              .hasError('required')
+                          ">
+                          Building Layout is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+
+                <form [formGroup]="plantForm">
+                  <!-- Plant & Machinery -->
+                  <div class="row" *ngIf="plantSelected">
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>PPE Type</mat-label>
+                        <mat-select formControlName="type">
+                          <mat-option value="Machinery">Machinery</mat-option>
+                          <mat-option value="Equipment">Equipment</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="plantForm.get('type').hasError('required')">
+                          PPE Type is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Serial Number</mat-label>
+                        <input matInput formControlName="serialNo" />
+                        <mat-error *ngIf="plantForm.get('serialNo').hasError('required')">
+                          Serial Number is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Model Number</mat-label>
+                        <input matInput formControlName="modelNo" />
+                        <mat-error *ngIf="plantForm.get('modelNo').hasError('required')">
+                          Model Number is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Capacity</mat-label>
+                        <input matInput formControlName="capacity" />
+                        <mat-error *ngIf="plantForm.get('capacity').hasError('required')">
+                          Capacity is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Status (Maintenance Condition)</mat-label>
+                        <mat-select formControlName="status">
+                          <mat-option value="New">New</mat-option>
+                          <mat-option value="Old">Old</mat-option>
+                          <mat-option value="Broken">Broken</mat-option>
+                          <mat-option value="Functional">Functional</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="plantForm.get('status').hasError('required')">
+                          Status is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>UseLocation</mat-label>
+                        <input matInput formControlName="useLocation" />
+                        <mat-error *ngIf="
+                            plantForm.get('useLocation').hasError('required')
+                          ">
+                          UseLocation is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Machinery utilization</mat-label>
+                        <input matInput formControlName="utilizationMachinery" />
+                        <mat-error *ngIf="
+                            plantForm.get('utilizationMachinery').hasError('required')
+                          ">
+                          Machinery utilization is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+
+                <form [formGroup]="vehicleForm">
+                  <!-- Motor Vehicle -->
+                  <div class="row" *ngIf="vehSelected">
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Make</mat-label>
+                        <input matInput formControlName="make" />
+                        <mat-error *ngIf="vehicleForm.get('make').hasError('required')">
+                          Make is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Model</mat-label>
+                        <input matInput formControlName="model" />
+                        <mat-error *ngIf="vehicleForm.get('model').hasError('required')">
+                          Model is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Year of Manufacture</mat-label>
+                        <input matInput formControlName="yom" />
+                        <mat-error *ngIf="vehicleForm.get('yom').hasError('required')">
+                          Year of Manufacture is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div> -->
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Year of Manufacture</mat-label>
+                        <input matInput [matDatepicker]="mnfcDatePicker" formControlName="yom" required />
+                        <mat-datepicker-toggle matSuffix [for]="mnfcDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #mnfcDatePicker></mat-datepicker>
+                        <mat-error *ngIf="vehicleForm.get('yom').hasError('required')"> Year of Manufacture is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Vehicle Identification Number (VIN)</mat-label>
+                        <input matInput formControlName="vin" />
+                        <mat-error *ngIf="vehicleForm.get('vin').hasError('required')">
+                          VIN is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Color</mat-label>
+                        <input matInput formControlName="color" />
+                        <mat-error *ngIf="vehicleForm.get('color').hasError('required')">
+                          Color is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Engine Size</mat-label>
+                        <input matInput formControlName="engineSize" />
+                        <mat-error *ngIf="
+                            vehicleForm.get('engineSize').hasError('required')
+                          ">
+                          Engine Size is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Mileage</mat-label>
+                        <input matInput formControlName="mileage" />
+                        <mat-error *ngIf="
+                            vehicleForm.get('mileage').hasError('required')
+                          ">
+                          Mileage is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Condition</mat-label>
+                        <mat-select formControlName="condition">
+                          <mat-option value="New">New</mat-option>
+                          <mat-option value="Used">Used</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                            vehicleForm.get('condition').hasError('required')
+                          ">
+                          Condition is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Registration Number (Number Plate)</mat-label>
+                        <input matInput formControlName="regNo" />
+                        <mat-error *ngIf="vehicleForm.get('regNo').hasError('required')">
+                          Registration Number is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Proof of Insurance (POI)</mat-label>
+                        <input matInput formControlName="poi" />
+                        <mat-error *ngIf="vehicleForm.get('poi').hasError('required')">
+                          Proof of Insurance is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Vehicle utilization</mat-label>
+                        <input matInput formControlName="utilizationVehicle" />
+                        <mat-error *ngIf="
+                            vehicleForm.get('utilizationVehicle').hasError('required')
+                          ">
+                          Vehicle utilization is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+
+                <form [formGroup]="softwareForm">
+                  <!-- Software -->
+                  <div class="row" *ngIf="softSelected">
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" />
+                        <mat-error *ngIf="softwareForm.get('name').hasError('required')">
+                          Name is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Version</mat-label>
+                        <input matInput formControlName="version" />
+                        <mat-error *ngIf="
+                            softwareForm.get('version').hasError('required')
+                          ">
+                          Version is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Vendor</mat-label>
+                        <input matInput formControlName="vendor" />
+                        <mat-error *ngIf="
+                            softwareForm.get('vendor').hasError('required')
+                          ">
+                          Vendor is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>License Type</mat-label>
+                        <mat-select formControlName="licenseType">
+                          <mat-option value="Single-user">Single-user</mat-option>
+                          <mat-option value="Multi-use">Multi-use</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                            softwareForm.get('licenseType').hasError('required')
+                          ">
+                          License Type is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>System Requirements</mat-label>
+                        <textarea matInput formControlName="systemRequirements"></textarea>
+                        <mat-error *ngIf="
+                            softwareForm
+                              .get('systemRequirements')
+                              .hasError('required')
+                          ">
+                          System Requirements is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </form>
+
+                <div>
+                  <button mat-raised-button matStepperNext color="primary">
+                    Next
+                  </button>
+                  <!-- [disabled]="!genForm.valid" -->
+                </div>
+              </mat-step>
+              <mat-step [stepControl]="genForm">
+                <form [formGroup]="genForm">
+                  <!-- <form [formGroup]="paymentForm"> -->
+                  <ng-template matStepLabel>Payment Details</ng-template>
+                  <div class="row">
+                    <!-- Existing fields -->
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Payment Frequency</mat-label>
+                        <mat-select formControlName="paymentFrequency" required>
+                          <mat-option *ngFor="let type of paymentFrequencies" [value]="type.name">{{ type.name
+                            }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="genForm.get('paymentFrequency').hasError('required')">Payment Frequency is
+                          required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>UpfrontPmt</mat-label>
+                        <input matInput formControlName="upfrontPmt" type="number" required />
+                        <mat-error *ngIf="genForm.get('upfrontPmt').hasError('required')
+                          ">UpfrontPmt is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Security Deposit</mat-label>
+                        <input matInput formControlName="securityDeposit" type="number" required />
+                        <mat-error *ngIf="
+                        genForm
+                              .get('securityDeposit')
+                              .hasError('required')
+                          ">Security Deposit is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Discount Rate</mat-label>
+                        <input matInput formControlName="discountRate" type="number" required />
+                        <mat-error *ngIf="
+                        genForm.get('discountRate').hasError('required')
+                          ">Discount Rate is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Initial Costs</mat-label>
+                        <input matInput formControlName="initialCosts" type="number" required />
+                        <mat-error *ngIf="
+                        genForm.get('initialCosts').hasError('required')
+                          ">Initial Costs is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Fixed Payment (Rent)</mat-label>
+                        <input matInput formControlName="fixedPmt" type="number" required />
+                        <mat-error *ngIf="
+                        genForm.get('fixedPmt').hasError('required')
+                          ">Fixed Payment (Rent) is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Lease Incentives</mat-label>
+                        <input matInput formControlName="leaseIncentive" type="number" required />
+                        <mat-error *ngIf="
+                        genForm
+                              .get('leaseIncentive')
+                              .hasError('required')
+                          ">Lease Incentives is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Lease Classification</mat-label>
+                        <mat-select formControlName="leaseClassification" required>
+                          <mat-option *ngFor="let classification of leaseClassifications"
+                            [value]="classification.name">{{ classification.name }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="
+                        genForm
+                              .get('leaseClassification')
+                              .hasError('required')
+                          ">Lease Classification is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Lease Contract No.</mat-label>
+                        <input matInput formControlName="leaseContractNo" required />
+                        <mat-error *ngIf="
+                        genForm
+                              .get('leaseContractNo')
+                              .hasError('required')
+                          ">Lease Contract No. is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Variable Payment</mat-label>
+                        <input matInput formControlName="variablePmts" required />
+                        <mat-error *ngIf="
+                        genForm.get('variablePmts').hasError('required')
+                          ">Variable Payment is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Lessor Account No.</mat-label>
+                        <input matInput formControlName="lessorAccountNo" required />
+                        <mat-error *ngIf="
+                        genForm
+                              .get('lessorAccountNo')
+                              .hasError('required')
+                          ">Lessor Account No. is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Escalation Factor</mat-label>
+                        <input matInput formControlName="escalationFactor" type="number" required />
+                        <mat-error *ngIf="
+                        genForm
+                              .get('escalationFactor')
+                              .hasError('required')
+                          ">Escalation Factor is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+
+
+                    <!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Lease Liability</mat-label>
+                        <input matInput formControlName="leaseLiability" required>
+                        <mat-error *ngIf="paymentForm.get('leaseLiability').hasError('required')">Lease Liability is required</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Right of Use Asset</mat-label>
+                        <input matInput formControlName="leaseLiability" required>
+                        <mat-error *ngIf="paymentForm.get('rou').hasError('required')">Right of Use Asset is required</mat-error>
+                      </mat-form-field>
+                    </div> -->
+                  </div>
+
+                  <div>
+                    <button mat-raised-button matStepperPrevious color="warn" class="msr-2">
+                      Back
+                    </button>
+                    <button mat-raised-button matStepperNext color="primary" [disabled]="!genForm.valid">
+                      Next
+                    </button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="documentsForm">
+                <form [formGroup]="documentsForm">
+                  <!-- <form [formGroup]="form"> -->
+
+                  <ng-template matStepLabel>Documents</ng-template>
+
+                  <div style="margin: 20px">
+                    <div class="table-responsive">
+                      <div class="materialTableHeader">
+                        <div class="row">
+                          <div class="col-8">
+                            <ul class="header-buttons-left ms-0">
+                              <li class="dropdown">
+                                <h2>Upload Documents</h2>
+                              </li>
+                              <li class="dropdown m-l-20">
+                                <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                <input placeholder="Filter..." type="text" (keyup)="applyFilter($event)" #filter
+                                  class="browser-default search-field" aria-label="Search box" />
+                              </li>
+
+                              <li>
+                                <div class="m-l-10" matTooltip="ADD">
+                                  <button mat-mini-fab color="primary" (click)="addFileRow()">
+                                    <mat-icon class="col-white">add</mat-icon>
+                                  </button>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="col-4"></div>
+                        </div>
+                      </div>
+
+                      <!-- <table mat-table [dataSource]="dataSource" formArrayName="filedetails"> -->
+                      <mat-table #table matTableExporter [dataSource]="dataSource" formArrayName="filedetails" matSort
+                        class="mat-cell" #exporter="matTableExporter">
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="id">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header
+                            class="column-nowrap psl-3 tbl-col-width-per-6">Id</mat-header-cell>
+                          <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index"
+                            class="column-nowrap psl-3 tbl-col-width-per-6">
+                            {{ index + 1 }}
+                          </mat-cell>
+                        </ng-container>
+
+                        <!-- <ng-container matColumnDef="filename">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header class="column-nowrap psl-3 tbl-col-width-per-50">Filename</mat-header-cell>
+                              <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index" class="column-nowrap psl-3 tbl-col-width-per-50">
+                                <mat-form-field class="example-full-width mt-2 mr-5" appearance="fill">
+                                  <mat-label>Filename</mat-label>
+                                  <input matInput type="text" formControlName="filename" placeholder="filename" readonly>
+                                </mat-form-field>
+                              </mat-cell>
+                            </ng-container> -->
+                        <ng-container matColumnDef="documentTitle">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header
+                            class="column-nowrap psl-3 tbl-col-width-per-50 filename-cell">documentTitle</mat-header-cell>
+                          <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index"
+                            class="column-nowrap psl-3 tbl-col-width-per-50 filename-cell">
+                            <mat-form-field class="example-full-width mt-2 mr-5" appearance="fill">
+                              <mat-label>DocumentTitle</mat-label>
+                              <input matInput type="text" formControlName="documentTitle" placeholder="DocumentTitle"
+                                maxlength="50" />
+                            </mat-form-field>
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="selectFile">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header
+                            class="column-nowrap psl-3 tbl-col-width-per-50 selectfile-cell">Select
+                            File</mat-header-cell>
+                          <mat-cell *matCellDef="let row; let index = index" [formGroupName]="index"
+                            class="column-nowrap psl-3 tbl-col-width-per-50 selectfile-cell">
+                            <input #file type="file" [disabled]="isLoading | async"
+                              (change)="onSelectFile(file.files, row, index)" [multiple]="'multiple'" />
+                          </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="action">
+                          <mat-header-cell class="column-nowrap psl-3 tbl-col-width-per-30"
+                            *matHeaderCellDef>Action</mat-header-cell>
+                          <mat-cell *matCellDef="let category; let i = index"
+                            class="column-nowrap psl-3 tbl-col-width-per-30">
+                            <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
+                              (click)="deleteCall(index)" class="tbl-action-btn">
+                              <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
+                            </button>
+                          </mat-cell>
+                        </ng-container>
+
+                        <!-- Row definitions -->
+                        <mat-header-row *matHeaderRowDef="displayColumns"></mat-header-row>
+                        <mat-row *matRowDef="
+                            let row;
+                            let i = index;
+                            columns: displayColumns
+                          " [style.cursor]="'pointer'" matRipple></mat-row>
+                        <mat-cell *matNoDataRow colspan="4">No data matching the filter "{{
+                          input.value
+                          }}"</mat-cell>
+                      </mat-table>
+
+                      <!-- Loading spinner -->
+                      <div *ngIf="isFileDataLoading" class="tbl-spinner">
+                        <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                        </mat-progress-spinner>
+                      </div>
+                      <mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 5, 10, 20, 30, 40, 50, 100]"
+                        aria-label="Select page of users"></mat-paginator>
+                    </div>
+                  </div>
+
+                  <div>
+                    <button mat-raised-button matStepperPrevious color="warn" class="msr-2">
+                      Back
+                    </button>
+                    <button mat-raised-button matStepperNext color="primary" [disabled]="!documentsForm.valid">
+                      Next
+                    </button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>You are now done.</p>
+                <div>
+                  <button mat-raised-button matStepperPrevious color="warn" class="msr-2">
+                    Back
+                  </button>
+                  <button mat-raised-button color="accent" class="msr-2" (click)="stepper.reset()">
+                    Reset
+                  </button>
+                  <button mat-raised-button color="primary" (click)="onSubmit()">
+                    Submit
+                  </button>
+                </div>
+              </mat-step>
+            </mat-horizontal-stepper>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

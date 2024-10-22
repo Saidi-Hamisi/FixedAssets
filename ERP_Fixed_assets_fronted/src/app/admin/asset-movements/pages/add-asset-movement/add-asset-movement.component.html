@@ -1,0 +1,211 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modalHeader clearfix">
+          <img src="../../../../../assets/images/emtec.png" alt="avatar" />
+          <div class="modal-about">
+            <div class="font-weight-bold p-t-5 ms-2 me-2 font-17">
+              New Asset Movement
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      mat-icon-button
+      (click)="dialogRef.close()"
+      aria-label="Close dialog"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="assetMovementScheduleForm" (ngSubmit)="addAssetMovementSchedule()">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Fixed Asset Movement Schedule Item</mat-label>
+              <input matInput formControlName="scheduleItem"  required />
+              <mat-error
+                *ngIf="
+                  assetMovementScheduleForm
+                    .get('scheduleItem')
+                    .hasError('required')
+                "
+              >
+                Schedule item field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Buildings</mat-label>
+              <input formControlName="buildings" type="number" matInput required />
+              <mat-error
+                *ngIf="
+                  assetMovementScheduleForm
+                    .get('buildings')
+                    .hasError('required')
+                "
+              >
+                Buildings field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Furniture</mat-label>
+              <input matInput formControlName="furniture" type="number" required />
+              <mat-error
+                *ngIf="
+                  assetMovementScheduleForm
+                    .get('furniture')
+                    .hasError('required')
+                "
+              >
+                Furniture field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Computer</mat-label>
+              <input matInput formControlName="computers" type="number" required />
+              <mat-error
+                *ngIf="
+                  assetMovementScheduleForm
+                    .get('computers')
+                    .hasError('required')
+                "
+              >
+                Computer field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Vehicles</mat-label>
+              <input matInput formControlName="vehicles" type="number" required />
+              <mat-error
+                *ngIf="
+                  assetMovementScheduleForm
+                    .get('vehicles')
+                    .hasError('required')
+                "
+              >
+                Vehicles field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Equipment</mat-label>
+              <input matInput formControlName="equipment" type="number" required />
+              <mat-error
+                *ngIf="
+                  assetMovementScheduleForm
+                    .get('equipment')
+                    .hasError('required')
+                "
+              >
+                Equipment field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Current Assets</mat-label>
+              <input matInput formControlName="currentAssets" type="number" required />
+              <mat-error
+                *ngIf="
+                  assetMovementScheduleForm
+                    .get('currentAssets')
+                    .hasError('required')
+                "
+              >
+                Current field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Biological Assets</mat-label>
+              <input matInput formControlName="biologicalAssets" type="number" required />
+              <mat-error
+                *ngIf="
+                  assetMovementScheduleForm
+                    .get('biologicalAssets')
+                    .hasError('required')
+                "
+              >
+                Biological field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Lands</mat-label>
+              <input matInput formControlName="land" type="number" required />
+              <mat-error
+                *ngIf="
+                  assetMovementScheduleForm.get('land').hasError('required')
+                "
+              >
+                Land field is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Total Cost</mat-label>
+              <input matInput formControlName="total" type="number" required />
+              <mat-error
+                *ngIf="
+                  assetMovementScheduleForm.get('total').hasError('required')
+                "
+              >
+                Total cost is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row" align="end">
+            <button mat-raised-button color="primary" [disabled]="!assetMovementScheduleForm.valid">Save</button>
+            <button mat-raised-button color="warn" tabindex="-1" (click)="dialogRef.close()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

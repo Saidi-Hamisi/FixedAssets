@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-lg-3 col-sm-6" (click)="newAsset()">
+      <div class="info-box7 bg-banking order-info-box7">
+        <!-- fas fa-ticket-alt -->
+        <div class="info-box7-block">
+          <h4 class="m-b-20">New Asset?</h4>
+          <h2 class="text-end"><span class="float-start">{{countAssets}}</span><i class="fas fa-ticket-alt"></i></h2>
+          
+        </div>
+        <button mat-button class="float-right">View Details</button>
+        <!-- <p class="mb-0 text-sm">
+          <span class="mr-2"><i class="fa fa-arrow-up" ></i> Click</span>
+          <span class="text-nowrap"> for more deatails</span>
+        </p> -->
+      </div>
+    </div>
+    <!-- class="" -->
+    <div class="col-lg-3 col-sm-6" (click)="profitLoss()">
+      <!-- far fa-check-circle -->
+      <div class="info-box7 bg-banking order-info-box7">
+        <div class="info-box7-block">
+          <h4 class="m-b-20">Profit/Loss!</h4>
+          <h2 class="text-end"><span class="float-start">{{countProfitLoss}}</span><i class="far fa-check-circle"></i></h2>            
+        </div>
+        <button mat-button class="float-right">View Details</button>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6" (click)="viewActions()">
+      <div class="info-box7 bg-banking order-info-box7">
+        <div class="info-box7-block">
+          <h4 class="m-b-20">View Actions?</h4>
+          <h2 class="text-end"><span class="float-start">{{countActions}}</span><i class="fas fa-briefcase"></i></h2>
+          <!-- <p class="m-b-0">37% Higher Then Last Month</p> -->
+         
+        </div>
+        <button mat-button class="float-right">View Details</button>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6" (click)="pendingReq()">
+      <div class="info-box7 bg-banking order-info-box7">
+        <div class="info-box7-block">
+          <h5 class="m-b-20">Pending Requests!</h5>
+          <h2 class="text-end"><span class="float-start">{{countPending}}</span><i class="fas fa-umbrella-beach"></i></h2>
+          <!-- <p class="m-b-0">10% Higher Then Last Month</p> -->
+          
+        </div>
+        <button mat-button class="float-right">View Details</button>
+      </div>
+    </div>
+  </div>
+ 

@@ -1,0 +1,232 @@
+<section class="content">
+    <div class="content-block">
+       <div class="block-header">
+          <!-- breadcrumb -->
+          <app-breadcrumb [title]="'Pending Asset Details'" [items]="['Home', 'Assets']" [active_item]="'Pending Asset Details'">
+          </app-breadcrumb>
+       </div>
+       <app-widgets></app-widgets>
+       <div class="row">
+        
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+             <div class="card" *ngIf="loading">
+                <div class="d-flex justify-content-center">
+                   <img src="assets/images/spinner.gif" style="display: block; margin: auto;width: 200px;" />
+                </div>
+             </div>
+             <div class="card" *ngIf="!loading">
+                <div class="boxs mail_listing">
+                   <table class="table table-hover" style="margin-top: 15px;">
+                      <tr>
+                         <td class="text-success">
+                            <div class="row">
+                               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                  <button mat-flat-button color="primary" (click)="openQRCode()"
+                                     style="margin-left: 40px;"> View
+                                  QR-code </button>
+                               </div>
+                               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" align="center">
+                                  <button mat-flat-button class="btn-success"> Export to
+                                  PDF </button>
+                               </div>
+                            </div>
+                         </td>
+                      </tr>
+                   </table>
+                   <!-- <mat-divider></mat-divider><br> -->
+                   <table class="table table-hover">
+                      <thead class="thead-light">
+                         <tr>
+                            <td class="text-success">
+                               <div class="row">
+                                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                     <h5 style="margin-left: 40px; margin-top: 15px;"> Asset Information</h5>
+                                  </div>
+                                  
+                               </div>
+                            </td>
+                         </tr>
+                      </thead>
+                   </table>
+                   <!-- <div class="row justify-content-center">
+                      <div class="col-md-12">
+                        <button mat-flat-button color="primary" (click)="openQRCode()" style="margin-left: 20px;"> View QR-code </button>
+                        
+                        <button mat-flat-button class="btn-success" style="float: right; margin-right: 20px;"> Export to PDF </button>
+                      </div>
+                      </div> -->
+                   <!-- <button mat-raised-button color="success">Success</button> -->
+                   <div class="row justify-content-center" style="margin: 5px;">
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                         <div class="body">
+                            <table class="table table-responsive">
+                               <table class="table">
+                                  <thead class="thead-light">
+                                     <tr>
+                                        <td></td>
+                                     </tr>
+                                  </thead>
+                                  <tbody>
+                                     <tr>
+                                        <td>Asset Category</td>
+                                        <td class="text-primary font-weight-bold">
+                                           {{ asset.category }}
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Asset Name:</td>
+                                        <td class="text-primary font-weight-bold">
+                                           {{ asset.asset_name }}
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Asset Code:</td>
+                                        <td class="text-primary font-weight-bold">
+                                           {{ asset.assetCode }}
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Location</td>
+                                        <td class="text-primary font-weight-bold">
+                                           <button class="btn btn-sm btn-primary" (click)="onNavigate()">{{
+                                           asset.location }}: view location</button>
+                                           <!-- <a href="https://www.google.com/maps/place/Muthaiga+Square+-+Nairobi/@-1.2780075,36.8354127,7032m/data=!3m1!1e3!4m5!3m4!1s0x182f16eb9601573b:0xd3fd21052bcc867f!8m2!3d-1.2614312!4d36.8423486"
+                                              target="_blank" class="btn btn-sm btn-primary">
+                                              {{ asset.location }}: view location </a> -->
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Depreciation Type:</td>
+                                        <td class="text-primary font-weight-bold">
+                                           {{ asset.depreciation_type }}
+                                        </td>
+                                     </tr>
+                                     <tr></tr>
+                                     <tr>
+                                        <td>Depreciation Rate:</td>
+                                        <td class="text-primary font-weight-bold">
+                                           {{ asset.depreciation_rate }}
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Asset's Cost:</td>
+                                        <td class="text-primary font-weight-bold"> Sh. {{
+                                           asset.cost }}
+                                        </td>
+                                     </tr>
+                                     
+                                  </tbody>
+                               </table>
+                            </table>
+                         </div>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                         <div class="body">
+                            <table class="table table-responsive">
+                               <table class="table">
+                                  <thead class="thead-light">
+                                     <tr>
+                                        <td></td>
+                                     </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                        <td>Accumulated Depreciation:</td>
+                                        <td class="text-primary font-weight-bold"> Syst Gen </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Asset's Value:</td>
+                                        <td class="text-primary font-weight-bold"> System Gen </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Custodian:</td>
+                                        <td class="text-primary font-weight-bold">
+                                           {{ asset.custodian }}
+                                        </td>
+                                     </tr>
+                                     <!-- Varying fields -->
+                                     <tr *ngIf="this.finValid">
+                                        <td>Department Unit:</td>
+                                        <td class="text-primary font-weight-bold">
+                                           {{ asset.departmentUnit }}
+                                        </td>
+                                     </tr>
+                                     <tr *ngIf="this.finValid">
+                                        <td>Financial Year:</td>
+                                        <td class="text-primary font-weight-bold"> 2021/2022 </td>
+                                     </tr>
+                                     <tr *ngIf="this.finValid">
+                                        <td>Asset miscellaneous details:</td>
+                                        <td class="text-primary font-weight-bold"> serialNo: {{
+                                           asset.serialNo }}
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Status</td>
+                                        <td class="text-primary font-weight-bold"> Active </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Attachments:</td>
+                                        <td class="text-primary font-weight-bold"></td>
+                                     </tr>
+                                     <tr>
+                                        <td>Remarks:</td>
+                                        <td class="text-primary font-weight-bold">
+                                           {{ asset.description }}
+                                        </td>
+                                     </tr>
+                                     <tr>
+                                        <td>Created At:</td>
+                                        <td class="text-primary font-weight-bold">
+                                           {{ asset.postedTime | date }}
+                                        </td>
+                                     </tr>
+                                  </tbody>
+                               </table>
+                            </table>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+        
+          <!-- <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="card" *ngIf="loading">
+               <div class="d-flex justify-content-center">
+                  <img src="assets/images/spinner.gif" style="display: block; margin: auto;width: 200px;" />
+               </div>
+            </div>
+            <div class="card" *ngIf="!loading">
+               <div class="body">
+                  <h5 class="b-b p-10 text-strong">Actions on Asset</h5>
+                  <br>
+                  
+                  <div class="row">
+                     <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6">
+                        <a>
+                        <button style="width: 100%" type="button" class="btn btn-sm btn-success" (click)="approveReq()"> Approve
+                        </button>
+                        </a>
+                     </div>
+                     <div class="col-xs-6 col-sm-12 col-md-12 col-lg-6">
+                        <a>
+                        <button style="width: 100%" type="button" class="btn btn-sm btn-danger" (click)="rejectReq()"> Reject
+                        </button>
+                        </a>
+                     </div>
+                     
+                  </div>
+                 
+                  <br />
+               </div>
+            </div>
+         </div> -->
+       </div>
+    </div>
+ </section>
+ <!-- <br />
+    Form value = {{ assetForm.value | json }}
+    <br />
+    Form Status = {{ assetForm }} -->
+ <!-- class="m-l-25 m-b-20" -->

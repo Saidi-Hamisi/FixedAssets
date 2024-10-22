@@ -1,0 +1,30 @@
+<div class="addContainer">
+  <div *ngIf="category" class="contact-details">
+    <div class="modalHeader">
+      <div class="contact-details-name mb-2">Category Details</div>
+      <button
+        mat-icon-button
+        (click)="dialogRef.close()"
+        aria-label="Close dialog"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div mat-dialog-content>
+      <mat-card-content>
+        <div class="row mt-1" style="width: 98%">
+          <div class="col-5 m-b-10">Custodian ID:</div>
+          <div class="col-7 pro-left m-b-10">{{ category.id }}</div>
+          <div class="col-5 m-b-10">Category Code:</div>
+          <div class="col-7 pro-left m-b-10">{{ category.categoryCode }}</div>
+          <div class="col-5 m-b-10">Category Name:</div>
+          <div class="col-7 pro-left m-b-10">{{ category.categoryName }}</div>
+          <div class="col-5 m-b-10">Depreciation Type:</div>
+          <div class="col-7 pro-left m-b-10">{{ category.depreciation_type }}</div>
+          <div class="col-5 m-b-10">Depreciation Rate:</div>
+          <div class="col-7 pro-left m-b-10">{{ category.depreciation_rate }}</div>
+        </div>
+      </mat-card-content>
+    </div>
+  </div>
+</div>

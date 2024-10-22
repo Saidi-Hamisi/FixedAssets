@@ -1,0 +1,32 @@
+
+<div class="container">
+  <h3 mat-dialog-title>Asset Bar Code</h3>
+  <div mat-dialog-content>
+    <div class="row">
+
+
+      <div class="col-12">
+
+        <dl class="dl-horizontal">
+
+          <img [src]="imageToShow" alt="Please scan the following Bar Code:" *ngIf="!isImageLoading; else noImageFound" width="300px" height="300px">
+          <ng-template #noImageFound>
+            <h5>Please wait as we generate Bar Code...</h5>
+          </ng-template>
+          <div *ngIf="isImageLoading" class="tbl-spinner">
+            <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+            </mat-progress-spinner>
+          </div>
+
+
+        </dl>
+      </div>
+    </div>
+  </div>
+  <mat-dialog-actions align="end" class="mb-1">
+
+    <button mat-flat-button color="accent" (click)="onNoClick()">Done</button>
+
+
+  </mat-dialog-actions>
+</div>

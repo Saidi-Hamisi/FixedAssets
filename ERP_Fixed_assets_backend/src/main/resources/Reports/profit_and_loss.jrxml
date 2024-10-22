@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.0.final using JasperReports Library version 6.19.0-646c68931cebf1a58bc65c4359d1f0ca223c5e94  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="retail_accounts" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2245224d-d26f-4dc0-9c46-75abb3c4a1e0">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter3.jrdax"/>
+	<parameter name="period_id" class="java.lang.String"/>
+	<parameter name="lease_id" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT las.discount AS discount,l.lease_type AS leaseType,l.lease_contract_no,las.date, l.upfront_pmt AS upfrontPayment,l.initial_cost AS initialCost,l.lease_incentive AS leaseIncentive,ras.depreciation AS depreciation,las.opening_bal AS leaseLiability FROM `lease` l JOIN lease_armotization_schedule las ON l.id=las.lease_id_fk JOIN rou_armotization_schedule ras ON l.id=ras.lease_id_fk WHERE ras.period=$P{period_id} AND l.id=$P{lease_id}  AND las.period=$P{period_id}]]>
+	</queryString>
+	<field name="discount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="discount"/>
+		<property name="com.jaspersoft.studio.field.label" value="discount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease_armotization_schedule"/>
+	</field>
+	<field name="leaseType" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lease_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="leaseType"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="lease_contract_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lease_contract_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="lease_contract_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="date" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease_armotization_schedule"/>
+	</field>
+	<field name="upfrontPayment" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="upfront_pmt"/>
+		<property name="com.jaspersoft.studio.field.label" value="upfrontPayment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="initialCost" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="initial_cost"/>
+		<property name="com.jaspersoft.studio.field.label" value="initialCost"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="leaseIncentive" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="lease_incentive"/>
+		<property name="com.jaspersoft.studio.field.label" value="leaseIncentive"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="depreciation" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="depreciation"/>
+		<property name="com.jaspersoft.studio.field.label" value="depreciation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="rou_armotization_schedule"/>
+	</field>
+	<field name="leaseLiability" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="opening_bal"/>
+		<property name="com.jaspersoft.studio.field.label" value="leaseLiability"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease_armotization_schedule"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="145" y="0" width="340" height="40" uuid="1ebcb885-5687-4b85-a586-87be90985d18">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROFIT AND LOSS STATEMENT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="213" y="60" width="100" height="28" uuid="5257b810-159c-4548-b0bf-8b2550fef81e">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lease_contract_no}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="113" y="60" width="100" height="28" uuid="91716c95-ecb6-41ac-9d43-00cbc4f18c54">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lease No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="60" width="60" height="28" uuid="c517cdac-0ebd-45ed-9cca-587890764841">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="59" width="100" height="28" uuid="90f5b546-8c5d-4bdc-ad86-331b6b8862db">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" hAlign="Right" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="1" y="8" width="112" height="61" uuid="fddbafbb-9cde-4a11-b8e4-8f3f67ef2a38"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="-5" y="7" width="567" height="24" forecolor="#FCFCFC" backcolor="#000C66" uuid="f0026ed8-0844-4e4c-bff0-f331e06e80b0">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$V{PAGE_NUMBER}==1]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Profit And Loss]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Opaque" x="-20" y="0" width="595" height="1" forecolor="#FFFFFF" backcolor="#000C66" uuid="98a04b35-34d4-48a7-875e-b78ee03a0b3e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="6.0" lineStyle="Double" lineColor="#000C66"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="130" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="350" y="0" width="202" height="30" uuid="f6ec21e0-3d2d-4852-9d75-b0f26e5b1595">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9a504fd4-8b88-4a41-bc8c-0efdb4d7fb25"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="10"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[String.format("%.2f", (double)($F{discount}))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="350" y="60" width="202" height="30" backcolor="#F0F0F0" uuid="dd3a293a-fc99-4d7f-8059-455e23e45aea">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="10"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[String.format("%.2f", (double)($F{discount}+$F{depreciation}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="60" width="350" height="30" backcolor="#E8E8E8" uuid="34c4bc85-3342-4d65-bb03-dcd147339486">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="10"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Equity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="350" height="30" uuid="2bebd224-5132-4cc6-88b9-2bc6d0811b1b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="10"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Depreciation charge for RoU Asset]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="350" y="30" width="202" height="30" uuid="36ed1e4b-7ffa-4b22-8133-d1868970e517">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="10"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[String.format("%.2f", (double)($F{depreciation}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="350" height="30" uuid="2120e29f-e2f6-4e2c-8f37-b2e8b9387201">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box leftPadding="10"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Lease Interest Expense]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="20">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</summary>
+</jasperReport>

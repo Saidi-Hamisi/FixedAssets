@@ -1,0 +1,77 @@
+
+
+  <div class="row ">
+    <div class="col-xl-3 col-lg-6">
+      <div class="card bg-banking" (click)="newAsset()">
+        <div class="card-statistic-3">
+          <div class="card-icon card-icon-large"><i class="fa fa-briefcase"></i></div>
+          <div class="card-content">
+            <h4 class="card-title">All Assets?</h4>
+            <span class="data-1">{{countAssets}}</span>
+            <mat-progress-bar mode="determinate"
+              class="progress-m progress-round progress-shadow l-orange-progress mt-2 mb-2" value="40">
+            </mat-progress-bar>
+            <p class="mb-0 text-sm">
+              <span class="mr-2"><i class="fa fa-arrow-up" ></i> Click</span>
+              <span class="text-nowrap"> for more deatails</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-6">
+      <div class="card bg-banking"  (click)="profitLoss()">
+        <div class="card-statistic-3">
+          <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
+          <div class="card-content">
+            <h4 class="card-title">Profit/Loss!</h4>
+            <span class="data-1">{{countProfitLoss}}</span>
+            <mat-progress-bar mode="determinate"
+              class="progress-m progress-round progress-shadow l-purple-progress mt-2 mb-2" value="40">
+            </mat-progress-bar>
+            <p class="mb-0 text-sm">
+              <span class="mr-2"><i class="fa fa-arrow-up" ></i> Click</span>
+              <span class="text-nowrap"> for more deatails</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-6">
+      <div class="card bg-banking" (click)="viewActions()">
+        <div class="card-statistic-3">
+          <div class="card-icon card-icon-large"><i class="fa fa-globe"></i></div>
+          <div class="card-content">
+            <h4 class="card-title">View Actions?</h4>
+            <span class="data-1">{{countActions}}</span>
+            <mat-progress-bar mode="determinate"
+              class="progress-m progress-round progress-shadow l-green-progress mt-2 mb-2" value="40">
+            </mat-progress-bar>
+            <p class="mb-0 text-sm">
+              <span class="mr-2"><i class="fa fa-arrow-up" ></i> Click</span>
+              <span class="text-nowrap"> for more deatails</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-6">
+      <div class="card bg-banking" (click)="pendingReq()">
+        <div class="card-statistic-3">
+          <div class="card-icon card-icon-large"><i class="fa fa-money-bill-alt"></i></div>
+          <div class="card-content">
+            <h4 class="card-title">Pending Requests!</h4>
+            <span class="data-1">{{countPending}}</span>
+            <mat-progress-bar mode="determinate"
+              class="progress-m progress-round progress-shadow l-sky-progress mt-2 mb-2" value="40">
+            </mat-progress-bar>
+            <p class="mb-0 text-sm">
+              <span class="mr-2"><i class="fa fa-arrow-up" ></i> Click</span>
+              <span class="text-nowrap"> for more deatails</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 

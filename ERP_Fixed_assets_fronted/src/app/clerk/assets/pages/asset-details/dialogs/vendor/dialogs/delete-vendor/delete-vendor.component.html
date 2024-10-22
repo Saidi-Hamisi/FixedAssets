@@ -1,0 +1,31 @@
+<div class="container">
+    <h3 mat-dialog-title>Are you sure?</h3>
+    <div mat-dialog-content>
+      <div class="row">
+        <!--Gift Icon-->
+        <div class="col text-center">
+          <i class="far fa-times-circle fa-6x col-red"></i>
+        </div>
+        <!--Modal Text-->
+        <div class="col-12">
+          <dl class="dl-horizontal">
+            <dt class="pull-left me-2">ID:</dt>
+            <dd>{{ vendor.id }}</dd>
+            <dt class="pull-left me-2">Name:</dt>
+            <dd>{{ vendor.vendorName }}</dd>
+            <dt class="pull-left me-2">Category:</dt>
+            <dd>{{ vendor.category }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <mat-dialog-actions align="end" class="mb-1">
+      
+      <button mat-flat-button color="primary" (click)="onNoClick()">Cancel</button>
+
+      <button mat-flat-button color="warn" (click)="confirmDelete()" tabindex="-1">
+        Delete
+      </button>
+    </mat-dialog-actions>
+  </div>
+  

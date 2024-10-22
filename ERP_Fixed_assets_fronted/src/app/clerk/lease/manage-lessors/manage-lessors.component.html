@@ -1,0 +1,122 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Manage Lessor'" [items]="['Lessor']" [active_item]="'Manage Lessor'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <div class="row">
+              <h2>{{ pageFunction }} Lessor</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+            </div>
+          </div>
+          <div class="body" *ngIf="showForm">
+
+            <form class="m-4" [formGroup]="mngForm">
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Business Category</mat-label>
+                    <mat-select formControlName="businessCategory" required (selectionChange)="getBussCategory($event)">
+                      <mat-option *ngFor="let category of busscategories" [value]="category.name">
+                        {{ category.name }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="
+                        mngForm.get('businessCategory').hasError('required')
+                      ">
+                      Business Category is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Lessor Name</mat-label>
+                    <input matInput formControlName="lessorName" />
+                    <mat-error *ngIf="mngForm.get('lessorName').hasError('required')">
+                      Lessor Name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Lessor Location</mat-label>
+                    <input matInput formControlName="lessorLocation" />
+                    <mat-error *ngIf="mngForm.get('lessorLocation').hasError('required')">
+                      Lessor Location is required
+                    </mat-error>
+                  </mat-form-field>
+
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Lessor KraPin</mat-label>
+                    <input matInput formControlName="lessorKraPin" />
+                    <mat-error *ngIf="mngForm.get('lessorKraPin').hasError('required')">
+                      Lessor Location is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Phone No</mat-label>
+                    <input matInput formControlName="phoneNo" />
+                    <mat-error *ngIf="mngForm.get('phoneNo').hasError('required')">
+                      PhoneNo is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>EmailAddress</mat-label>
+                    <input matInput formControlName="emailAddress" />
+                    <mat-error *ngIf="mngForm.get('emailAddress').hasError('required')">
+                      EmailAddress is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>ID No</mat-label>
+                    <input matInput formControlName="regDocNo" />
+                    <mat-error *ngIf="mngForm.get('regDocNo').hasError('required')">
+                      ID Number is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-label>Upload Files</mat-label>
+                  <app-file-upload (change)="onSelectFile($event)"></app-file-upload>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div mat-dialog-action [align]="'end'">
+                    <button class="btn-space" type="button" mat-raised-button color="warn" mat-button
+                      (click)="cancel()">
+                      Cancel
+                    </button>
+                    <button mat-raised-button type="submit" color="primary" [disabled]="mngForm.invalid"
+                      (click)="onSubmit()">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,82 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Assets Analysis'" [items]="['Assets']" [active_item]="'Assets Analysis'">
+      </app-breadcrumb>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Assets numbers according to categories</h2>
+          </div>
+          
+              <div class="table-responsive">
+              <app-by-categories></app-by-categories>
+            </div>
+            
+        </div>
+      </div>
+      <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Asset categories chart</h2>
+          </div>
+          <div class="body">
+            <app-by-cat></app-by-cat>
+          </div>
+        </div>
+      </div>    
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Assets numbers according to departments</h2>
+          </div>
+          
+              <div class="table-responsive">
+                <app-by-department></app-by-department>
+              </div>
+           
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Assets numbers according to location</h2>
+          </div>
+         
+            
+              <div class="table-responsive">
+                <app-by-location></app-by-location>
+              </div>
+           
+         
+        </div>
+      </div>
+      
+    </div>
+    <div class="row clearfix">
+      
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2>Sort according to categories</h2>
+          </div>
+          
+              <div class="table-responsive">
+                <app-sort-categories></app-sort-categories>
+              </div>
+           
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+

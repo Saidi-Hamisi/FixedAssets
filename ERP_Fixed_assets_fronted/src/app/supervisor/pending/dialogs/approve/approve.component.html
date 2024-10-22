@@ -1,0 +1,32 @@
+<div class="container">
+    <h3 mat-dialog-title>Are you sure?</h3>
+    <div mat-dialog-content>
+      <div class="row">
+        <!--Gift Icon-->
+        <div class="col text-center">
+            <i class="far fa-check-circle fa-6x col-green"></i>
+          <!-- <i class="far fa-times-circle fa-6x col-red"></i> -->
+        </div>
+        <!--Modal Text-->
+        <div class="col-12">
+          <dl class="dl-horizontal">
+            <dt class="pull-left me-2">ID:</dt>
+            <dd>{{ pending.id }}</dd>
+            <dt class="pull-left me-2">Asset Name:</dt>
+            <dd>{{ pending.assetName }}</dd>
+            <dt class="pull-left me-2">Action:</dt>
+            <dd>{{ pending.action }}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <mat-dialog-actions align="end" class="mb-1">
+      
+      <button mat-flat-button color="warn" (click)="onNoClick()">Cancel</button>
+
+      <button mat-flat-button color="primary" (click)="submitAproval()" tabindex="-1">
+        Approve
+      </button>
+    </mat-dialog-actions>
+  </div>
+  

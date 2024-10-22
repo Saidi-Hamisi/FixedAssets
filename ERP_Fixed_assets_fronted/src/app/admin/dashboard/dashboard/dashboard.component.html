@@ -1,0 +1,233 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb
+        [title]="'Dashboard'"
+        [items]="['Home']"
+        [active_item]="'Dashboard'"
+      >
+      </app-breadcrumb>
+    </div>
+    <!-- Widgets -->
+    <app-widgets></app-widgets>
+    <!-- #END# Widgets -->
+
+    <div class="row clearfix">
+      <!-- Bar chart with line -->
+      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+        <div class="card" style="position: relative; height: 500px;">
+          <div class="header">
+            <h2>Asset Performance</h2>
+          </div>
+          <div class="body">
+            <div class="recent-report__chart">
+              <apx-chart
+                [series]="lineChartOptions.series"
+                [chart]="lineChartOptions.chart"
+                [xaxis]="lineChartOptions.xaxis"
+                [stroke]="lineChartOptions.stroke"
+                [colors]="lineChartOptions.colors"
+                [dataLabels]="lineChartOptions.dataLabels"
+                [legend]="lineChartOptions.legend"
+                [tooltip]="lineChartOptions.tooltip"
+                [markers]="lineChartOptions.markers"
+                [grid]="lineChartOptions.grid"
+                [yaxis]="lineChartOptions.yaxis"
+                [title]="lineChartOptions.title"
+                [fill]="lineChartOptions.fill"
+              >
+              </apx-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="card" style="position: relative; height: 500px;">
+          <div class="header">
+            <h2>Sub-County Wise Assets</h2>
+          </div>
+          <div class="body">
+            <div id="chart">
+              <apx-chart [series]="pieChartOptions.series" [chart]="pieChartOptions.chart"
+                [labels]="pieChartOptions.labels" [colors]="pieChartOptions.colors" [responsive]="pieChartOptions.responsive"
+                [dataLabels]="pieChartOptions.dataLabels" [legend]="pieChartOptions.legend" class="apex-pie-center">
+              </apx-chart>
+            </div>
+            <div class="table-responsive m-t-15">
+              <table class="table align-items-center">
+                <thead>
+                  <tr>
+                    <th>Location</th>
+                    <th>Asset Valuation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let location of chartData.labels; let i = index">
+                    <td><i class="fa fa-circle col-blue msr-2"></i> {{ location }}</td>
+                    <td>{{ chartData.series[i] }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-12">
+        <div class="card">
+          <div class="body">
+            <div class="table-responsive">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-4">
+                    <ul class="header-buttons-left ms-0">
+                      <li class="dropdown">
+                        <h2>Your Activities</h2>
+                      </li>
+                      <li class="dropdown m-l-20">
+                        <label for="search-input"
+                          ><i class="material-icons search-icon"
+                            >search</i
+                          ></label
+                        >
+                        <input
+                          placeholder="Search"
+                          type="text"
+                          (keyup)="applyFilter($event)"
+                          #filter
+                          class="browser-default search-field"
+                          aria-label="Search box"
+                        />
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- <div class="col-6">
+                    <ul class="header-buttons-left ms-0">
+                      <form [formGroup]="lookUpForm">
+                        <li class="dropdown m-l-20">
+                          <mat-form-field class="example-full-width">
+                            <mat-label>Pick a date</mat-label>
+                            <input
+                              matInput
+                              [matDatepicker]="picker3"
+                              formControlName="stime"
+                              required
+                            />
+                            <mat-datepicker-toggle
+                              matSuffix
+                              [for]="picker3"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                          </mat-form-field>
+                        </li>
+                        <li class="dropdown m-l-20">
+                          <mat-form-field class="example-full-width mb-3">
+                            <mat-label>Username</mat-label>
+                            <mat-select  formControlName="uname" required>
+                              <mat-option
+                                *ngFor="let user of users"
+                                [value]="user.username"
+                              >
+                                {{ user.username }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </li>
+                        <li class="dropdown m-l-20">
+                          <button mat-flat-button color="primary">Look Up</button>
+                        </li>
+                      </form>
+                    </ul>
+                  </div> -->
+                </div>
+              </div>
+              <mat-table
+                #table
+                [dataSource]="dataSource"
+                matSort
+                class="mat-cell"
+              >
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Id
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let log">{{ log.id }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="time">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Time
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let log">
+                    {{ log.starttime | date: "medium" }}</mat-cell
+                  >
+                </ng-container>
+                <ng-container matColumnDef="username">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Username
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let log">
+                    {{ log.username }}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="requesttip">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Request IP
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let log">
+                    {{ log.requestip }}
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="activity">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Activity
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let log">
+                    {{ log.activity }}
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns">
+                </mat-header-row>
+                <mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                  (click)="detailsCall(row)"
+                  [style.cursor]="'pointer'"
+                  matRipple
+                >
+                </mat-row>
+              </mat-table>
+              <!-- Loading spinner -->
+              <!-- <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                      <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                      </mat-progress-spinner>
+                    </div> -->
+              <div
+                *ngIf="logs.length < 0"
+                class="no-results"
+                [style.display]="
+                  dataSource.renderedData.length == 0 ? '' : 'none'
+                "
+              >
+                No results
+              </div>
+              <mat-paginator
+                #paginator
+                [pageIndex]="0"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 15, 20, 25]"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <app-daily-logs></app-daily-logs> -->
+  </div>
+</section>

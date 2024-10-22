@@ -1,0 +1,377 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'All Assets'" [items]="['Assets']" [active_item]="'All Assets'">
+        </app-breadcrumb>
+      </div>
+      <app-widgets></app-widgets>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>
+                Upcoming Maintenance
+              </h2>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled user-progress list-unstyled-border list-unstyled-noborder"
+                style="position: relative; max-height: 335px;" [perfectScrollbar]>
+                <li class="lecture-list">
+                  <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/user/usrbig1.jpg">
+                  <div class="set-flex">
+                    <div class="media-title font-16" *ngIf="maintenanceDataExist">{{this.data[0].maintener}}</div>
+                    <div class="media-title font-16" *ngIf="!maintenanceDataExist">Maintainer Name</div>
+                    <div class="text-job text-muted mb-0" *ngIf="maintenanceDataExist">{{ this.data[0].email }}</div>
+                    <div class="text-job text-muted mb-0" *ngIf="!maintenanceDataExist">maintainer@gmail.com</div>
+                  </div>
+                  
+                  <!-- {
+                    "id": 1,
+                    "maintener": "Test maintainer",
+                    "email": "maint@gmail.com",
+                    "freequency": "Monthly",
+                    "maintDate": "2023-06-04T21:00:00.000+00:00",
+                    "nextMaintDate": "2023-07-02T21:00:00.000+00:00",
+                    "days": 28,
+                    "remainingDays": 1,
+                    "data": null,
+                    "note": "Test maintenance",
+                    "status": "Active"
+                } -->
+
+                  <div class="ms-auto">
+                    <div class="media-title font-16" *ngIf="maintenanceDataExist">{{ this.data[this.data.length - 1].nextMaintDate | date: 'medium'}} </div>
+                    <div class="media-title font-16" *ngIf="!maintenanceDataExist">12 June '20</div>
+                    <!-- <div class="text-job text-muted mb-0">09:00-10:00</div> -->
+                  </div>
+                  <div class="ms-auto">
+                    <button class="badge badge-solid-green btn btn-success btn-sm m-1">Send Reminder?
+                    </button>
+                  </div>
+                  
+                </li>
+                
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Your Progress</h2>
+            </div>
+            <div class="tableBody">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Subject</th>
+                      <th>Progress</th>
+                      <th>Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Chemistry</td>
+                      <td>30%<mat-progress-bar mode="determinate" value="30" color="warn"></mat-progress-bar>
+                      </td>
+                      <td>2 Months</td>
+                    </tr>
+                    <tr>
+                      <td>Mathematics</td>
+                      <td>55%<mat-progress-bar mode="determinate" value="55"></mat-progress-bar>
+                      </td>
+                      <td>3 Months</td>
+                    </tr>
+                    <tr>
+                      <td>Painting</td>
+                      <td>67%<mat-progress-bar mode="determinate" value="67"></mat-progress-bar>
+                      </td>
+                      <td>1 Months</td>
+                    </tr>
+                    <tr>
+                      <td>Business studies</td>
+                      <td>70%<mat-progress-bar mode="determinate" value="70"></mat-progress-bar>
+                      </td>
+                      <td>2 Months</td>
+                    </tr>
+                    <tr>
+                      <td>Biology</td>
+                      <td>24%<mat-progress-bar mode="determinate" value="24" color="warn"></mat-progress-bar>
+                      </td>
+                      <td>3 Months</td>
+                    </tr>
+                    <tr>
+                      <td>Computer studies</td>
+                      <td>77%<mat-progress-bar mode="determinate" value="77"></mat-progress-bar>
+                      </td>
+                      <td>4 Months</td>
+                    </tr>
+                    <tr>
+                      <td>Geography</td>
+                      <td>41%<mat-progress-bar mode="determinate" value="41" color="warn"></mat-progress-bar>
+                      </td>
+                      <td>2 Months</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div class="card">
+            <div class="header">
+              <h2>Assignments</h2>
+            </div>
+            <div class="body">
+              <div class="doc-file-type">
+                <ul class="list-unstyled" style="position: relative; max-height: 285px;" [perfectScrollbar]>
+                  <li class="d-flex mb-3">
+                    <span class="msr-3 align-self-center img-icon primary-rgba text-primary"><i
+                        class="far fa-file-word"></i></span>
+                    <div class="set-flex">
+                      <h5 class="font-16 mb-1">Java Programming</h5>
+                      <p>.doc, 4.3 MB</p>
+                    </div>
+                    <div class="ms-auto">
+                      <td>
+                        <i class="far fa-trash-alt psr-3"></i>
+                        <i class="far fa-arrow-alt-circle-down"></i>
+                      </td>
+                    </div>
+                  </li>
+                  <li class="d-flex mb-3">
+                    <span class="msr-3 align-self-center img-icon success-rgba text-success"><i
+                        class="far fa-file-excel"></i></span>
+                    <div class="set-flex">
+                      <h5 class="font-16 mb-1">Angular Theory</h5>
+                      <p>.xls, 2.5 MB</p>
+                    </div>
+                    <div class="ms-auto">
+                      <td>
+                        <i class="far fa-trash-alt psr-3"></i>
+                        <i class="far fa-arrow-alt-circle-down"></i>
+                      </td>
+                    </div>
+                  </li>
+                  <li class="d-flex mb-3">
+                    <span class="msr-3 align-self-center img-icon danger-rgba text-danger"><i
+                        class="far fa-file-pdf"></i></span>
+                    <div class="set-flex">
+                      <h5 class="font-16 mb-1">Maths Sums Solution</h5>
+                      <p>.pdf, 10.5 MB</p>
+                    </div>
+                    <div class="ms-auto">
+                      <td>
+                        <i class="far fa-trash-alt psr-3"></i>
+                        <i class="far fa-arrow-alt-circle-down"></i>
+                      </td>
+                    </div>
+                  </li>
+                  <li class="d-flex mb-3">
+                    <span class="msr-3 align-self-center img-icon info-rgba text-info"><i
+                        class="far fa-file-archive"></i></span>
+                    <div class="set-flex">
+                      <h5 class="font-16 mb-1">Submit Science Journal</h5>
+                      <p>.zip, 53.2 MB</p>
+                    </div>
+                    <div class="ms-auto">
+                      <td>
+                        <i class="far fa-trash-alt psr-3"></i>
+                        <i class="far fa-arrow-alt-circle-down"></i>
+                      </td>
+                    </div>
+                  </li>
+                  <li class="d-flex mb-3">
+                    <span class="msr-3 align-self-center img-icon primary-rgba text-primary"><i
+                        class="far fa-file-word"></i></span>
+                    <div class="set-flex">
+                      <h5 class="font-16 mb-1">Marketing Instructions</h5>
+                      <p>.doc, 5.3 MB</p>
+                    </div>
+                    <div class="ms-auto">
+                      <td>
+                        <i class="far fa-trash-alt psr-3"></i>
+                        <i class="far fa-arrow-alt-circle-down"></i>
+                      </td>
+                    </div>
+                  </li>
+                </ul>
+                <div class="text-center p-t-20">
+                  <button mat-stroked-button color="primary">More Records</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        
+      </div>
+      
+      <div class="row clearfix">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> -->
+            <div class="card">
+              <div class="body">
+                  <div class="table-responsive">
+                      <div class="materialTableHeader">
+                        <div class="row">
+                          <div class="col-8">
+                            <ul class="header-buttons-left ms-0">
+                              <li class="dropdown">
+                                <h2>Maintenance Record</h2>
+                              </li>
+                              <li class="dropdown m-l-20">
+                                <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                <input placeholder="Filter..." type="text" (keyup)="applyFilter($event)" #filter class="browser-default search-field"
+                                  aria-label="Search box">
+                              </li>
+                              <li>
+                                <div class="m-l-10" matTooltip="ADD">
+                                  <button mat-mini-fab color="primary" (click)="addMaint()">
+                                    <mat-icon class="col-white">add</mat-icon>
+                                  </button>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="m-l-10" matTooltip="REFRESH">
+                                  <button mat-mini-fab color="primary" (click)="refresh()">
+                                    <mat-icon class="col-white">refresh</mat-icon>
+                                  </button>
+                                </div>
+                              </li>
+                              <!-- <li>
+                                <div class="m-l-10" [hidden]=!selection.hasValue() matTooltip="DELETE">
+                                  <button mat-mini-fab color="warn">
+                                    <mat-icon class="col-white">delete
+                                    </mat-icon>
+                                  </button>
+                                </div>
+                              </li> -->
+                            </ul>
+                          </div>
+                          <div class="col-4">
+                            <ul class="header-buttons">
+                              <li>
+                                <div class="export-button m-l-10" matTooltip="XLSX">
+                                  <img src="assets/images/icons/xlsx.png" alt=""
+                                    (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                                </div>
+                              </li>
+                              <li>
+                                <div class="export-button m-l-10" matTooltip="CSV">
+                                  <img src="assets/images/icons/csv.png" alt="" (click)="exporter.exportTable('csv')" />
+                                </div>
+                              </li>
+                              <li>
+                                <div class="export-button m-l-10" matTooltip="JSON">
+                                  <img src="assets/images/icons/json.png" alt="" (click)="exporter.exportTable('json')" />
+                                </div>
+                              </li>
+                              <li>
+                                <div class="export-button m-l-10" matTooltip="TXT">
+                                  <img src="assets/images/icons/txt.png" alt="" (click)="exporter.exportTable('txt')" />
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+                        #exporter="matTableExporter">
+                        
+                        
+                       
+                        <ng-container matColumnDef="maintainer">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-30">Maintainer</mat-header-cell>
+                          <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-30"> {{row.maintener}}</mat-cell>
+                        </ng-container> 
+                        <ng-container matColumnDef="freequency">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-30">Frequency</mat-header-cell>
+                          <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-30"> {{row.freequency}}</mat-cell>
+                        </ng-container> 
+                        
+                        <ng-container matColumnDef="maintDate">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-30">MaintenanceDate</mat-header-cell>
+                          <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-30">  {{row.maintDate | date: 'MM/dd/yyyy'}}</mat-cell>
+                        </ng-container> 
+                        
+                        <ng-container matColumnDef="nextMaintDate">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>NextMaintenance</mat-header-cell>
+                          <mat-cell *matCellDef="let row" (click)="onSelect(row)">
+                            {{row.nextMaintDate | date: 'MM/dd/yyyy'}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="remainingDays">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>RemainingDays</mat-header-cell>
+                          <mat-cell *matCellDef="let row" (click)="onSelect(row)">
+                            {{row.remainingDays}}</mat-cell>
+                        </ng-container>
+                        
+                       
+                        <ng-container matColumnDef="note">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>Note</mat-header-cell>
+                          <mat-cell *matCellDef="let row" (click)="onSelect(row)">
+                            {{row.note}}</mat-cell>
+                        </ng-container>
+                       
+                        
+  
+  
+  
+                        <ng-container matColumnDef="status">
+                          <mat-header-cell *matHeaderCellDef class="pr-0 table-img tbl-col-width-per-20">Status</mat-header-cell>
+                          <mat-cell *matCellDef="let row; let i=index;" class="pr-0 table-img tbl-col-width-per-20" (click)="onSelect(row)">
+                            <div *ngIf="row.status=='Active'">
+                              <div class="badge badge-solid-blue">Active</div>
+                              <!-- <span class="badge badge-pill badge-primary col-blue">
+                                        {{"Pending"}}</span> -->
+                            </div>
+                            <div *ngIf="row.status=='Rejected'">
+                              <div class="badge badge-solid-red">Rejected</div>
+                              <!-- <span class="badge badge-pill badge-primary col-red">
+                                      {{"Rejected"}}</span> -->
+                            </div>
+                          </mat-cell>
+                        </ng-container>
+                        
+                        <!-- <ng-container matColumnDef="action">
+                          <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
+                          <mat-cell *matCellDef="let row" (click)="onSelect(row)"> </mat-cell>
+                        </ng-container>                   -->
+                       
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelect(row)"
+                          [style.cursor]="'pointer'" matRipple>
+                        </mat-row>
+                        <mat-cell *matNoDataRow colspan="4"> No data matching the filter "{{input.value}}"</mat-cell>
+                        
+                      </mat-table>
+                      <!-- Loading spinner -->
+                      <div *ngIf="isLoading"  class="tbl-spinner">
+                        <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                        </mat-progress-spinner>
+                      </div>
+                      <!-- context menu start -->
+                      
+                      
+                      
+                      <mat-paginator [pageSize]="10" [pageSizeOptions]="[2,5,10,20, 30, 40, 50, 100]" aria-label="Select page of users"></mat-paginator>
+                      
+                    </div>
+                         
+              </div>
+            </div>
+          </div>
+
+        
+        
+      </div>
+  
+  
+    </div>
+  </section>

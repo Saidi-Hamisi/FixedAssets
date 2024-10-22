@@ -1,0 +1,80 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb
+        [title]="'Add Asset Code'"
+        [items]="['Asset Codes']"
+        [active_item]="'Add Asset Code'"
+      >
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Add</strong> Asset Code</h2>
+          </div>
+          <div class="body">
+            <form  [formGroup]="assetCodeForm"
+            (ngSubmit)="addAssetCode()">
+              <div class="example-container">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <div class="form-group">
+                      <mat-form-field
+                        class="example-full-width"
+                        appearance="fill"
+                      >
+                        <mat-label>Asset code id</mat-label>
+                        <input
+                          matInput
+                          formControlName="id"
+                          required
+                        />
+                        <mat-error
+                          *ngIf="
+                            assetCodeForm.get('id')
+                              .hasError('required')
+                          "
+                        >
+                          Asset code is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field class="example-full-width mb-3" appearance="fill">
+                        <mat-label>Field</mat-label>
+                        <mat-select formControlName="parameter" required>
+                          <mat-option
+                            *ngFor="let field of fields"
+                            [value]="field"
+                          >
+                            {{ field }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error
+                          *ngIf="assetCodeForm.get('parameter').hasError('required')"
+                        >
+                          Field is required
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button
+                mat-raised-button
+                type="submit"
+                [disabled]="!assetCodeForm.valid"
+                color="primary"
+              >
+                Add Asset Code
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

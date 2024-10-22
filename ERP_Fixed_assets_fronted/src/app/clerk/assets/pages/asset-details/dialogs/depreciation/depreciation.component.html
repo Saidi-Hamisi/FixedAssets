@@ -1,0 +1,312 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Asset Details'" [items]="['Home', 'Assets']" [active_item]="'Asset Details'">
+        </app-breadcrumb>
+      </div>
+      <app-widgets></app-widgets>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+          <div class="card" *ngIf="loading" >
+            <div class="d-flex justify-content-center">
+              <img src="assets/images/spinner.gif"  style="display: block; margin: auto;width: 200px;" />
+           </div>
+           
+          </div>
+         
+          <div class="card" *ngIf="!loading">
+            <div class="body">
+              <h5 class="b-b p-10 text-strong">Fill depreciation details</h5>
+              <br>
+              <!-- <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                  </mat-form-field>
+                </div>
+              </div> -->
+              <div class="row">
+                <div class="col-xs-3 col-sm-12 col-md-12 col-lg-12">
+                    <form  [formGroup]="Form" (ngSubmit)="onSubmit()">
+
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                                    <mat-label>Depreciation method</mat-label>
+                                    <mat-select formControlName="method" required>
+                                      <mat-option *ngFor="let depreciation of depreciations" [value]="depreciation.name">
+                                        {{ depreciation.name }}
+                                      </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="
+                                        Form.get('method').hasError('required')
+                                      ">
+                                      Depreciation method is required
+                                    </mat-error>
+                                  </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label><span>Asset Cost</span>   </mat-label>
+                                    <input matInput formControlName="c" type="number" required readonly/>
+                                    <span matPrefix>SH.&nbsp;</span>
+                                    <span matSuffix>.00</span>
+                                    
+                                    <mat-error *ngIf="Form.get('c').hasError('required')">
+                                        Asset Cost is required
+                                    </mat-error>
+                                  </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label><span>Salvage Value</span>   </mat-label>
+                                    <input matInput formControlName="sv" type="number" required />
+                                    <span matPrefix>SH.&nbsp;</span>
+                                    <span matSuffix>.00</span>
+                                    
+                                    <mat-error *ngIf="Form.get('sv').hasError('required')">
+                                        Salvage Value is required
+                                    </mat-error>
+                                  </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Rate</mat-label>
+                                    <input matInput formControlName="rate" required />
+                                    
+                                    <mat-error *ngIf="Form.get('rate').hasError('required')">
+                                        Rate is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+           
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Number of Years</mat-label>
+                                    <input matInput formControlName="y" required />
+                                    
+                                    <mat-error *ngIf="Form.get('y').hasError('required')">
+                                        Number of Years is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+            
+                       
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                                <div mat-dialog-action [align]="'end'">
+                                    <button class="btn-space" type="button" mat-raised-button color="warn" mat-button
+                                    (click)="cancel()">
+                                    Cancel
+                                    </button>
+                                    <button mat-raised-button color="primary" [disabled]="!Form.valid">
+                                        Process
+                                    </button>
+                                    <!-- [disabled]="!Form.valid " -->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+              </div>
+           
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+          <div class="card" *ngIf="loading" >
+            <div class="d-flex justify-content-center">
+              <img src="assets/images/spinner.gif"  style="display: block; margin: auto;width: 200px;" />
+           </div>
+          </div>
+         
+          <div class="card" *ngIf="!loading">
+            <div class="body">
+                <div class="table-responsive">
+                    <div class="materialTableHeader">
+                      <div class="row">
+                        <div class="col-8">
+                          <ul class="header-buttons-left ms-0">
+                            <li class="dropdown">
+                              <h2>Calculate Depreciation</h2>
+                            </li>
+                            <li class="dropdown m-l-20">
+                              <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                              <input placeholder="Filter..." type="text" (keyup)="applyFilter($event)" #filter class="browser-default search-field"
+                                aria-label="Search box">
+                            </li>
+                            <!-- <li>
+                              <div class="m-l-10" matTooltip="ADD">
+                                <button mat-mini-fab color="primary" (click)="addMaint()">
+                                  <mat-icon class="col-white">add</mat-icon>
+                                </button>
+                              </div>
+                            </li> -->
+                            <!-- <li>
+                              <div class="m-l-10" matTooltip="REFRESH">
+                                <button mat-mini-fab color="primary" (click)="refresh()">
+                                  <mat-icon class="col-white">refresh</mat-icon>
+                                </button>
+                              </div>
+                            </li> -->
+                            <li>
+                              <div class="m-l-10" matTooltip="FETCH EXISTING DEPRECIATION DATA">
+                                <button mat-mini-fab color="primary" (click)="fetchData()">
+                                  <mat-icon class="col-white">cloud_download</mat-icon>
+                                </button>
+                              </div>
+                            </li>
+                            
+                            <!-- <li>
+                              <div class="m-l-10" [hidden]=!selection.hasValue() matTooltip="DELETE">
+                                <button mat-mini-fab color="warn">
+                                  <mat-icon class="col-white">delete
+                                  </mat-icon>
+                                </button>
+                              </div>
+                            </li> -->
+                          </ul>
+                        </div>
+                        <div class="col-4">
+                          <ul class="header-buttons">
+                            <li>
+                              <div class="export-button m-l-10" matTooltip="XLSX">
+                                <img src="assets/images/icons/xlsx.png" alt=""
+                                  (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
+                              </div>
+                            </li>
+                            <li>
+                              <div class="export-button m-l-10" matTooltip="CSV">
+                                <img src="assets/images/icons/csv.png" alt="" (click)="exporter.exportTable('csv')" />
+                              </div>
+                            </li>
+                            <li>
+                              <div class="export-button m-l-10" matTooltip="JSON">
+                                <img src="assets/images/icons/json.png" alt="" (click)="exporter.exportTable('json')" />
+                              </div>
+                            </li>
+                            <li>
+                              <div class="export-button m-l-10" matTooltip="TXT">
+                                <img src="assets/images/icons/txt.png" alt="" (click)="exporter.exportTable('txt')" />
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
+                      #exporter="matTableExporter">
+
+                      <!-- displayedColumns: string[] = [
+                      "id",
+                      "year",
+                      "begginingValue",
+                      "depreciation",
+                      "endyearValue",
+                      "cost",
+                      "rate",
+                      "residualValue",
+                      "usefulLife",
+                      "assetID",
+                    ];
+                   -->
+
+              
+                      
+                      <!-- ID Column -->
+                      <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-6">Id</mat-header-cell>
+                        <mat-cell *matCellDef="let row" class="table-img tbl-col-width-per-6">{{row.id}}</mat-cell>
+                      </ng-container>
+                      
+                      <ng-container matColumnDef="year">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-8">Year</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-8"> {{row.year}}</mat-cell>
+                      </ng-container>
+                     
+                      
+                      <ng-container matColumnDef="begginingValue">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-40">Beginning Value</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-40"> {{row.begginingValue | number:'1.2-2'}}</mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="depreciation">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-40">Depreciation</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-40"> {{row.depreciation | number:'1.2-2'}}</mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="endyearValue">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-40">End Year Value</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-40"> {{row.endyearValue | number:'1.2-2'}}</mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="rate">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-40">Rate</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-40"> {{row.rate}}</mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="cost">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-40">Cost</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-40"> {{row.cost | number:'1.2-2'}}</mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="residualValue">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-40">ResidualValue</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-40"> {{row.residualvalue | number:'1.2-2'}}</mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="usefulLife">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-40">UsefulLife</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-40"> {{row.usefullife}}</mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="assetID">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header class="table-img tbl-col-width-per-40">AssetID</mat-header-cell>
+                        <mat-cell *matCellDef="let row" (click)="onSelect(row)" class="table-img tbl-col-width-per-40"> {{row.assetId}}</mat-cell>
+                      </ng-container>
+                      
+
+
+
+
+                     
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelect(row)"
+                        [style.cursor]="'pointer'" matRipple>
+                      </mat-row>
+                      <mat-cell *matNoDataRow colspan="4"> No data matching the filter "{{input.value}}"</mat-cell>
+                      
+                    </mat-table>
+                    <!-- Loading spinner -->
+                    <div *ngIf="isLoading"  class="tbl-spinner">
+                      <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                      </mat-progress-spinner>
+                    </div>
+                    
+                    
+                    <mat-paginator [pageSize]="10" [pageSizeOptions]="[2,5,10,20, 30, 40, 50, 100]" aria-label="Select page of users"></mat-paginator>
+                    
+                  </div>
+                       
+            </div>
+            
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- <br />
+        Form value = {{ assetForm.value | json }}
+        <br />
+        Form Status = {{ assetForm }} -->
+  <!-- class="m-l-25 m-b-20" -->

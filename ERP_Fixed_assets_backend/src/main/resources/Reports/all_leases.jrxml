@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="8ffd9c05-0be0-4665-bfbd-2d14dc4efbdd">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="FixeedAssets1.jrdax"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F2F2F2">
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+			</style>
+		</conditionalStyle>
+	</style>
+	<parameter name="lease_type" class="java.lang.String"/>
+	<parameter name="logo" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM `lease` WHERE `lease_type` LIKE '%$P!{lease_type}%']]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="computed_discounting_rate" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="computed_discounting_rate"/>
+		<property name="com.jaspersoft.studio.field.label" value="computed_discounting_rate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="computed_term" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="computed_term"/>
+		<property name="com.jaspersoft.studio.field.label" value="computed_term"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="delete_time" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="delete_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="delete_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="deleted_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="deleted_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="deleted_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="deleted_flag" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="deleted_flag"/>
+		<property name="com.jaspersoft.studio.field.label" value="deleted_flag"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="depreciation_rate" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="depreciation_rate"/>
+		<property name="com.jaspersoft.studio.field.label" value="depreciation_rate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="discount_rate" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="discount_rate"/>
+		<property name="com.jaspersoft.studio.field.label" value="discount_rate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="end_date" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="end_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="end_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="escalation_factor" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="escalation_factor"/>
+		<property name="com.jaspersoft.studio.field.label" value="escalation_factor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="fixed_pmt" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="fixed_pmt"/>
+		<property name="com.jaspersoft.studio.field.label" value="fixed_pmt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="initial_cost" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="initial_cost"/>
+		<property name="com.jaspersoft.studio.field.label" value="initial_cost"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="lease_classification" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lease_classification"/>
+		<property name="com.jaspersoft.studio.field.label" value="lease_classification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="lease_contract_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lease_contract_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="lease_contract_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="lease_incentive" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="lease_incentive"/>
+		<property name="com.jaspersoft.studio.field.label" value="lease_incentive"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="lease_liability" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="lease_liability"/>
+		<property name="com.jaspersoft.studio.field.label" value="lease_liability"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="lease_term" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="lease_term"/>
+		<property name="com.jaspersoft.studio.field.label" value="lease_term"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="lease_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lease_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="lease_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="lessor_account_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lessor_account_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="lessor_account_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="lessor_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="lessor_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="lessor_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="modified_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="modified_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="modified_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="modified_flag" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="modified_flag"/>
+		<property name="com.jaspersoft.studio.field.label" value="modified_flag"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="modified_time" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="modified_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="modified_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="payment_frequency" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="payment_frequency"/>
+		<property name="com.jaspersoft.studio.field.label" value="payment_frequency"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="posted_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="posted_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="posted_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="posted_flag" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="posted_flag"/>
+		<property name="com.jaspersoft.studio.field.label" value="posted_flag"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="posted_time" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="posted_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="posted_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="rou" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="rou"/>
+		<property name="com.jaspersoft.studio.field.label" value="rou"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="security_deposit" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="security_deposit"/>
+		<property name="com.jaspersoft.studio.field.label" value="security_deposit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="start_date" class="java.time.LocalDateTime">
+		<property name="com.jaspersoft.studio.field.name" value="start_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="start_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<field name="upfront_pmt" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="upfront_pmt"/>
+		<property name="com.jaspersoft.studio.field.label" value="upfront_pmt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="lease"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<frame>
+				<reportElement x="-10" y="0" width="800" height="80" uuid="7e7a45c3-7a11-47c8-97ac-36905fc1a1ca">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement x="284" y="6" width="340" height="40" uuid="00dec3f3-9baf-48c6-8e76-bc51c45b1861">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="24" isBold="true"/>
+					</textElement>
+					<text><![CDATA[LEASES REPORT]]></text>
+				</staticText>
+				<textField pattern="MMMMM dd, yyyy">
+					<reportElement x="668" y="49" width="121" height="28" uuid="09fa0b3c-c90a-4d0e-b1cc-63cd2de90ae5">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="568" y="49" width="100" height="28" uuid="6f665939-0c21-4d0c-93f9-669407b02bcc">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<box rightPadding="5"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Date :]]></text>
+				</staticText>
+				<image scaleImage="FillFrame" hAlign="Right" vAlign="Middle" onErrorType="Blank">
+					<reportElement x="10" y="10" width="120" height="57" uuid="608fd302-c1a2-4510-a19b-fb1eb7c523bf"/>
+					<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="12" splitType="Stretch">
+			<line>
+				<reportElement mode="Opaque" x="-20" y="5" width="842" height="1" forecolor="#FFFFFF" backcolor="#000C66" uuid="f3c21dc7-f136-46bd-8ee3-bdb7891c8d51">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="6.0" lineStyle="Double" lineColor="#000C66"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="50" height="35" forecolor="#FCFCFC" backcolor="#000C66" uuid="64d30f4e-503e-46fd-a4d5-f798eab87ed8">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[#]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="370" y="0" width="80" height="35" forecolor="#FCFCFC" backcolor="#000C66" uuid="bb42dd78-39a0-476e-87a2-b3f7e8126dcb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd9c395b-5a27-43bc-bda0-c5df32e153e3"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fixed Pmt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="290" y="0" width="80" height="35" forecolor="#FCFCFC" backcolor="#000C66" uuid="7329cb07-7280-4548-b907-a4501a164647">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ba87c9c2-db1f-40b3-b5ce-3b77e86912d2"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lease Term]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="210" y="0" width="80" height="35" forecolor="#FCFCFC" backcolor="#000C66" uuid="53476e2d-cf7c-4b1d-9252-f8a25d773aa1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="124622e3-e31a-47b6-b20e-ec2fb9168321"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lease Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="50" y="0" width="80" height="35" forecolor="#FCFCFC" backcolor="#000C66" uuid="133c00f5-8085-4b49-95ed-047084f6d7d1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f4b5db32-9aff-4121-9d31-d84008794f84"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="8">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Contract No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="130" y="0" width="80" height="35" forecolor="#FCFCFC" backcolor="#000C66" uuid="c0418bc8-087b-4077-a9e0-b80e96dd1e0b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f4b5db32-9aff-4121-9d31-d84008794f84"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="8">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Leasor Code]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="450" y="0" width="80" height="35" forecolor="#FCFCFC" backcolor="#000C66" uuid="890bbe6f-85f7-485d-99b8-059ce46216c3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd9c395b-5a27-43bc-bda0-c5df32e153e3"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discount rate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="530" y="0" width="100" height="35" forecolor="#FCFCFC" backcolor="#000C66" uuid="e8668bd4-c14f-4736-b110-a9aecfc4dfed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd9c395b-5a27-43bc-bda0-c5df32e153e3"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Upfront Pmt]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="630" y="0" width="100" height="35" forecolor="#FCFCFC" backcolor="#000C66" uuid="b9a7999e-7d03-4986-a36f-63d218faaf71">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd9c395b-5a27-43bc-bda0-c5df32e153e3"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Lease Liability]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="730" y="0" width="80" height="35" forecolor="#FCFCFC" backcolor="#000C66" uuid="9ecea8a6-7b7b-4579-9bc5-6193d1ad0b4e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bd9c395b-5a27-43bc-bda0-c5df32e153e3"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="2" rightPadding="2">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#FCFCFC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RoU (Initial)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight">
+				<reportElement style="Row" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="50" height="25" isPrintWhenDetailOverflows="true" uuid="45e9794c-8927-44e7-a976-2fa2e843a0c1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Row" x="210" y="0" width="80" height="25" uuid="a3855c95-0d23-42db-8053-02dad8bc3ae8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="171610b4-e897-4afb-8699-886e95f79faa"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lease_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Row" x="130" y="0" width="80" height="25" uuid="128b4aa1-4760-4324-8bc2-0a47507aace6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f8f6522-bc82-476d-b4f9-562db5b97a3d"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lessor_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Row" x="290" y="0" width="80" height="25" uuid="35327d83-0a42-4d83-b526-bcca39544ab9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9e943de0-a927-413b-ae45-4ac9821d1432"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lease_term}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)">
+				<reportElement style="Row" x="370" y="0" width="80" height="25" uuid="466a929c-a3fe-4361-9b43-f7c50d95ceb6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5116927-1df3-4936-a30c-50664906dfc1"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fixed_pmt}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Row" x="450" y="0" width="80" height="25" uuid="5382c78e-23bc-4bec-acd6-2fc8c4db057d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5d44ee8d-8949-421f-bbdc-74053d646886"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{discount_rate}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)">
+				<reportElement style="Row" x="530" y="0" width="100" height="25" uuid="a355c359-091e-4ff9-ade4-0aa2f3dbccf0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6bdf1ba5-d35a-4869-8701-97b42dd34cc4"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{upfront_pmt}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Row" x="50" y="0" width="80" height="25" uuid="a25be8f8-4cda-48dd-ae65-715d416ad1b0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0f8f6522-bc82-476d-b4f9-562db5b97a3d"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lease_contract_no}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)">
+				<reportElement style="Row" x="630" y="0" width="100" height="25" uuid="bfd5acea-ea6d-4bf7-a42b-ef34bfde45ef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6bdf1ba5-d35a-4869-8701-97b42dd34cc4"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{lease_liability}.doubleValue()]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##;(#,##0.##)">
+				<reportElement style="Row" x="730" y="0" width="80" height="25" uuid="7d259846-7ea2-4944-9636-36b3c6bad33b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6bdf1ba5-d35a-4869-8701-97b42dd34cc4"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="3" leftPadding="4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rou}.doubleValue()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

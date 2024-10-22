@@ -1,0 +1,46 @@
+<div class="addContainer">
+  <div *ngIf="assetMovement" class="contact-details">
+    <div class="modalHeader">
+      <div class="contact-details-name mb-2">Fixed Asset Movement Schedule</div>
+      <button
+        mat-icon-button
+        (click)="dialogRef.close()"
+        aria-label="Close dialog"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div mat-dialog-content>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-5 m-b-10">Schedule Item ID:</div>
+          <div class="col-7 pro-left m-b-10">
+            {{ assetMovement.scheduleItem }}
+          </div>
+          <div class="col-5 m-b-10">Land :</div>
+          <div class="col-7 pro-left m-b-10">{{ assetMovement.land }}</div>
+          <div class="col-5 m-b-10">Buildings :</div>
+          <div class="col-7 pro-left m-b-10">{{ assetMovement.buildings }}</div>
+          <div class="col-5 m-b-10">Computers :</div>
+          <div class="col-7 pro-left m-b-10">{{ assetMovement.computers }}</div>
+          <div class="col-5 m-b-10">Furniture :</div>
+          <div class="col-7 pro-left m-b-10">{{ assetMovement.furniture }}</div>
+          <div class="col-5 m-b-10">Vehicles :</div>
+          <div class="col-7 pro-left m-b-10">{{ assetMovement.vehicles }}</div>
+          <div class="col-5 m-b-10">Equipment :</div>
+          <div class="col-7 pro-left m-b-10">{{ assetMovement.equipment }}</div>
+          <div class="col-5 m-b-10">Current Assets :</div>
+          <div class="col-7 pro-left m-b-10">
+            {{ assetMovement.currentAssets }}
+          </div>
+          <div class="col-5 m-b-10">Biological Assets :</div>
+          <div class="col-7 pro-left m-b-10">
+            {{ assetMovement.biologicalAssets }}
+          </div>
+          <div class="col-5 m-b-10">Total :</div>
+          <div class="col-7 pro-left m-b-10">{{ assetMovement.total }}</div>
+        </div>
+      </mat-card-content>
+    </div>
+  </div>
+</div>

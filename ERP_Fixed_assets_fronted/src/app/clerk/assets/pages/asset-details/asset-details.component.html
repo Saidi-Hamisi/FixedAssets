@@ -1,0 +1,358 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Asset Details'" [items]="['Home', 'Assets']" [active_item]="'Asset Details'">
+      </app-breadcrumb>
+    </div>
+    <app-widgets></app-widgets>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="card" *ngIf="loading">
+          <div class="d-flex justify-content-center">
+            <img src="assets/images/spinner.gif" style="display: block; margin: auto; width: 200px" />
+          </div>
+        </div>
+
+        <div class="card" *ngIf="!loading">
+          <div class="body">
+            <h5 class="b-b p-10 text-strong">Actions on Asset</h5>
+            <br />
+            <!-- <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                  <mat-label>Description</mat-label>
+                  <textarea matInput formControlName="description"></textarea>
+                </mat-form-field>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-xs-3 col-sm-12 col-md-12 col-lg-3">
+                <a>
+                  <button style="width: 100%" type="button" class="btn btn-sm btn-primary" (click)="openRevaluate()">
+                    Revaluate
+                  </button>
+                </a>
+              </div>
+              <div class="col-xs-3 col-sm-12 col-md-12 col-lg-3">
+                <a>
+                  <button style="width: 100%" type="button" class="btn btn-sm btn-success" (click)="openTransfer()">
+                    Transfer
+                  </button>
+                </a>
+              </div>
+              <div class="col-xs-3 col-sm-12 col-md-12 col-lg-3">
+                <a>
+                  <button style="width: 100%" type="button" class="btn btn-sm btn-warning" (click)="openDispose()">
+                    Dispose
+                  </button>
+                </a>
+              </div>
+              <div class="col-xs-3 col-sm-12 col-md-12 col-lg-3">
+                <a>
+                  <button style="width: 100%" type="button" class="btn btn-sm btn-danger" (click)="openWriteOff()">
+                    Write Off
+                  </button>
+                </a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <form [formGroup]="selectForm">
+                  <div class="row my-4">
+                    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+                      <mat-label>Warranty Details</mat-label>
+                      <mat-select placeholder="Select Warranty Operation" (selectionChange)="selectWarranty($event)"
+                        formControlName="warranty">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let option of options" [value]="option.name">
+                          {{ option.name }}
+                        </mat-option>
+                      </mat-select>
+                      <!-- <mat-error *ngIf="selectDeptControl.hasError('required')">Please choose
+                                              option!</mat-error> -->
+                      <mat-hint>{{ selectFeedback }}</mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <!-- <div class="row">
+                    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+                      <mat-label>Work Order Details</mat-label>
+                      <mat-select placeholder="Work Order Details" formControlName="work"
+                        (selectionChange)="selectWork($event)">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let option of options" [value]="option.name">
+                          {{ option.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-hint>{{ selectFeedback }}</mat-hint>
+                    </mat-form-field>
+                  </div> -->
+                  <div class="row my-4">
+                    <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+                      <mat-label>Insurance Details</mat-label>
+                      <mat-select placeholder="Insurance Details Operations" formControlName="insurance"
+                        (selectionChange)="selectInsurance($event)">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let option of options" [value]="option.name">
+                          {{ option.name }}
+                        </mat-option>
+                      </mat-select>
+                      <!-- <mat-error *ngIf="selectDeptControl.hasError('required')">Please choose
+                                              option!</mat-error> -->
+                      <mat-hint>{{ selectFeedback }}</mat-hint>
+                    </mat-form-field>
+                  </div>
+                </form>
+
+                <!-- <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <button style="width: 100%" mat-raised-button color="accent" (click)="selectVendor()">Vendor
+                      Details</button>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <button style="width: 100%" mat-raised-button color="primary" (click)="selectMaint()">Maintenance
+                      Details</button>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <button style="width: 100%" mat-raised-button color="primary" (click)="selectHistory()">Asset
+                      History</button>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <button style="width: 100%" mat-raised-button color="warn"
+                      (click)="selectDepreciation()">Depreciation</button>
+                  </div>
+
+                </div> -->
+
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 my-4">
+                    <button class="btn btn-color1" style="width: 100%" (click)="selectVendor()">
+                      Vendor Details
+                    </button>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 my-4">
+                    <button class="btn btn-color2" style="width: 100%" (click)="selectMaint()">
+                      Maintenance Details
+                    </button>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 my-4">
+                    <button class="btn btn-color3" style="width: 100%" (click)="selectHistory()">
+                      Asset History
+                    </button>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 my-4">
+                    <button class="btn btn-color4" style="width: 100%" (click)="selectDepreciation()">
+                      Depreciation
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+        <div class="card" *ngIf="loading">
+          <div class="d-flex justify-content-center">
+            <img src="assets/images/spinner.gif" style="display: block; margin: auto; width: 200px" />
+          </div>
+        </div>
+
+        <div class="card" *ngIf="!loading">
+
+          <div class="boxs mail_listing">
+
+            <div class="row justify-content-between mt-4 mx-3">
+              <div class="col-6">
+                <button mat-flat-button color="primary" (click)="openQRCode()" class="btn-block custom-button">
+                  <i class="fas fa-qrcode"></i> View QR Code
+                </button>
+                <button mat-flat-button color="primary" (click)="openBarCode()" class="btn-block custom-button mx-1">
+                  <i class="fas fa-barcode"></i> View Barcode
+                </button>
+              </div>
+              <div class="col-6">
+                <button mat-flat-button class="btn-success btn-block custom-button">
+                  <i class="material-icons">picture_as_pdf</i> Export to PDF
+                </button>
+              </div>
+            </div>
+            
+
+
+            <div class="row justify-content-between mt-2 mx-3">
+              <div class="col-6">
+                <h5 class="my-2">Asset Information</h5>
+              </div>
+              <div class="col-6 text-right">
+                <div class="button-container" style="margin-left: 10px;">
+                  <button mat-icon-button color="primary" (click)="$event.stopPropagation(); onEditAsset()"
+                    class="edit-button">
+                    <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                  </button>
+                  <span class="edit-text" (click)="$event.stopPropagation(); onEditAsset()">Edit Asset</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row justify-content-center mt-1">
+              <div class="col-lg-6">
+                <div class="body">
+                  <table class="table table-responsive">
+                    <thead class="thead-light">
+                      <tr>
+                        <th colspan="3">Asset Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Asset Category</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">{{ this.assetDetail.category }}</td>
+                      </tr>
+                      <tr>
+                        <td>Asset Name</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">{{ this.assetDetail.asset_name }}</td>
+                      </tr>
+                      <tr>
+                        <td>Asset Code</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">{{ this.assetDetail.assetCode }}</td>
+                      </tr>
+                      <tr>
+                        <td>Location</td>
+                        <td>:</td>
+                        <!-- <td class="text-primary font-weight-bold">
+                          <button class="btn btn-small btn-primary" (click)="onNavigate(assetDetail.location)">
+                            {{ this.assetDetail.location }}: View Location
+                          </button>
+                        </td> -->
+                        <td class="text-primary font-weight-bold">
+                          <span>{{ this.assetDetail.location }}</span>
+                          <!-- <button class="btn btn-small btn-primary" (click)="onNavigate(assetDetail.location)">
+                            <i class="fas fa-eye"></i> View Location?
+                          </button> -->
+
+                          <div class="badge badge-solid-blue"><a class="location-link"
+                              href="https://www.google.com/maps/place/{{ this.assetDetail.location }}" target="_blank">
+                              <i class="fas fa-map-marker-alt"></i> View Location
+                            </a></div>
+
+
+                        </td>
+
+                      </tr>
+
+                      <tr>
+                        <td>Depreciation Type</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">{{ this.assetDetail.depreciation_type }}</td>
+                      </tr>
+                      <tr>
+                        <td>Depreciation Rate</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">{{ this.assetDetail.depreciation_rate }}</td>
+                      </tr>
+                      <tr>
+                        <td>Asset's Cost</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">Sh. {{ this.assetDetail.cost }}</td>
+                      </tr>
+                      <tr>
+                        <td>Accumulated Depreciation</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">Syst Gen</td>
+                      </tr>
+                      <tr>
+                        <td>Asset's Value</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">System Gen</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="body">
+                  <table class="table table-responsive">
+                    <thead class="thead-light">
+                      <tr>
+                        <th colspan="3">Asset Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Custodian</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">
+                          {{ this.assetDetail.custodian }}
+                        </td>
+                      </tr>
+                      <tr *ngIf="this.finValid">
+                        <td>Department Unit</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">
+                          {{ this.assetDetail.department_unit }}
+                        </td>
+                      </tr>
+                      <tr *ngIf="this.finValid">
+                        <td>Financial Year</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">
+                          2022/2023
+                        </td>
+                      </tr>
+                      <tr *ngIf="this.finValid">
+                        <td>Miscellaneous</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">
+                          serialNo {{ this.assetDetail.serialNo }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Status</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">Active</td>
+                      </tr>
+                      <tr>
+                        <td>Attachments</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold"></td>
+                      </tr>
+                      <tr>
+                        <td>Remarks</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">
+                          {{ this.assetDetail.description }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Created At</td>
+                        <td>:</td>
+                        <td class="text-primary font-weight-bold">
+                          {{ this.assetDetail.postedTime | date }}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+
+
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <br />
+      Form value = {{ assetForm.value | json }}
+      <br />
+      Form Status = {{ assetForm }} -->
+<!-- class="m-l-25 m-b-20" -->

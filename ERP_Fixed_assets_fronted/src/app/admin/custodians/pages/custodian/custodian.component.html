@@ -1,0 +1,30 @@
+<div class="addContainer">
+  <div *ngIf="custodian" class="contact-details">
+    <div class="modalHeader">
+      <div class="contact-details-name mb-2">Custodian Details</div>
+      <button
+        mat-icon-button
+        (click)="dialogRef.close()"
+        aria-label="Close dialog"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div mat-dialog-content>
+      <mat-card-content>
+        <div class="row mt-1" style="width: 98%">
+          <div class="col-5 m-b-10">Custodian ID:</div>
+          <div class="col-7 pro-left m-b-10">{{ custodian.id }}</div>
+          <div class="col-5 m-b-10">Custodian Code:</div>
+          <div class="col-7 pro-left m-b-10">{{ custodian.custodianCode }}</div>
+          <div class="col-5 m-b-10">Custodian Name:</div>
+          <div class="col-7 pro-left m-b-10">{{ custodian.custodianName }}</div>
+          <div class="col-5 m-b-10">Custodian Email:</div>
+          <div class="col-7 pro-left m-b-10">{{ custodian.email }}</div>
+          <div class="col-5 m-b-10">Department:</div>
+          <div class="col-7 pro-left m-b-10">{{ custodian.department }}</div>
+        </div>
+      </mat-card-content>
+    </div>
+  </div>
+</div>

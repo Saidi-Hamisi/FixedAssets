@@ -1,0 +1,547 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Add Asset'" [items]="['Assets']" [active_item]="'Add Asset'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <div class="row">
+              <h2>Add Asset</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+
+              <div style="float: right; margin-right: 35px;">
+                <button mat-raised-button color="primary" (click)="import()"><i
+                    class="fas fa-file-import fa-sm text-white-50"></i> import data from excel</button>
+                <!-- <a routerLink="/excelimport" class="btn btn-sm btn-primary"><i
+                  class="fas fa-file-import fa-sm text-white-50"></i>
+                import data from excel</a> -->
+              </div>
+            </div>
+
+          </div>
+          <!-- Main fields -->
+          <div class="body" *ngIf="showForm">
+            <!-- (ngSubmit)="onSubmit()" -->
+            <form class="m-4" [formGroup]="docForm">
+              <!-- <iframe width="100%" height="400" frameborder="0" [src]="getGoogleMapsUrl()" allowfullscreen></iframe> -->
+
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Select asset</mat-label>
+                    <input matInput formControlName="category" />
+
+                    <mat-icon matSuffix (click)="categoriesLookup()">search</mat-icon>
+                    <mat-error *ngIf="
+                    docForm.get('category').hasError('required') &&
+                    docForm.get('category').touched
+                      ">
+                      Please select category</mat-error>
+                  </mat-form-field>
+         
+
+                  
+                </div>
+                <!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Department</mat-label>
+                    <mat-select formControlName="departmentUnit" required (selectionChange)="getSelectedDepartment($event)">
+                      <mat-option *ngFor="let departmentUnit of departmentUnits" [value]="departmentUnit.departmentName">
+                        {{ departmentUnit.departmentName }} - {{ departmentUnit.department}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="docForm.get('departmentUnit').hasError('required')">
+                      Department Unit is required
+                    </mat-error>
+                  </mat-form-field>
+                </div> -->
+             
+
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Select Department Unit</mat-label>
+                    <input matInput formControlName="departmentUnit" />
+  
+                    <mat-icon matSuffix (click)="departmentUnitsLookup()">search</mat-icon>
+                    <mat-error *ngIf="
+                    docForm.get('departmentUnit').hasError('required') &&
+                    docForm.get('departmentUnit').touched
+                      ">
+                      Please select department unit</mat-error>
+                  </mat-form-field>
+
+                  <!-- <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Department</mat-label>
+                    <mat-select formControlName="departmentUnit" required
+                      (selectionChange)="getSelectedDepartment($event)">
+                      <mat-option *ngFor="let departmentUnit of departmentUnits" [value]="departmentUnit">
+                        {{ departmentUnit.departmentName }} - {{ departmentUnit.department}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="docForm.get('departmentUnit').hasError('required')">
+                      Department Unit is required
+                    </mat-error>
+                  </mat-form-field> -->
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Select Custodian</mat-label>
+                    <input matInput formControlName="custodian" />
+  
+                    <mat-icon matSuffix (click)="custodiansLookup()">search</mat-icon>
+                    <mat-error *ngIf="
+                    docForm.get('custodian').hasError('required') &&
+                    docForm.get('custodian').touched
+                      ">
+                      Please select custodian</mat-error>
+                  </mat-form-field>
+
+                  <!-- <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Custodian</mat-label>
+                    <mat-select formControlName="custodian" required>
+                      <mat-option *ngFor="let custodian of custodians" [value]="custodian.custodianName">
+                        {{ custodian.custodianName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="docForm.get('custodian').hasError('required')">
+                      Custodian is required
+                    </mat-error>
+                  </mat-form-field> -->
+                </div>
+              </div>
+              <div class="row">
+              
+
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Select Location</mat-label>
+                    <input matInput formControlName="location" />
+  
+                    <mat-icon matSuffix (click)="locationsLookup()">search</mat-icon>
+                    <mat-error *ngIf="
+                    docForm.get('location').hasError('required') &&
+                    docForm.get('location').touched
+                      ">
+                      Please select location</mat-error>
+                  </mat-form-field>
+
+                  <!-- <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Location</mat-label>
+                    <mat-select formControlName="location" required (selectionChange)="getSelectedLocation($event)">
+                      <mat-option *ngFor="let location of locations" [value]="location">
+                        {{location.ward}} - {{ location.subcounty }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="docForm.get('location').hasError('required')">
+                      Location is required
+                    </mat-error>
+                  </mat-form-field> -->
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Depreciation type</mat-label>
+                    <mat-select formControlName="depreciation_type" required>
+                      <mat-option *ngFor="let depreciation of depreciations" [value]="depreciation.name">
+                        {{ depreciation.name }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="
+                        docForm.get('depreciation_type').hasError('required')
+                      ">
+                      Depreciation Type is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Depreciation rate</mat-label>
+                    <input matInput type="number" class="example-right-align" formControlName="depreciation_rate" />
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Asset Name</mat-label>
+                    <input matInput formControlName="asset_name" />
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Cost</mat-label>
+                    <input matInput type="number" class="example-right-align" formControlName="cost" />
+                    <span matPrefix>SH.&nbsp;</span>
+                    <span matSuffix>.00</span>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Acquisition Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="acquisition_date" required />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="
+                        docForm.get('acquisition_date').hasError('required')
+                      ">
+                      Please select acquisition date
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3"></div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3"></div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3"></div>
+              </div>
+              <!-- land is selected start -->
+              <div class="row" *ngIf="landSelected">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>LR Number</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="LRno" />
+                      <mat-error *ngIf="docForm.get('LRno').hasError('required')">
+                        Please enter LR Number!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Hectare size</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="size" />
+                      <mat-error *ngIf="docForm.get('LRno').hasError('required')">
+                        Please enter Hectare size!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3"></div>
+                </div>
+              </div>
+              <!-- land is sleceted ends -->
+
+              <!-- building is selected start -->
+              <div *ngIf="buSelected">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>LR Number</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="LRno" />
+                      <mat-error *ngIf="docForm.get('LRno').hasError('required')">
+                        Please enter LR Number!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Size in Sq Ft</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="size" />
+                      <mat-error *ngIf="docForm.get('size').hasError('required')">
+                        Please enter Hectare size!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Type</mat-label>
+                      <input matInput formControlName="type" />
+                      <mat-error *ngIf="docForm.get('type').hasError('required')">
+                        Please enter Type!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <!-- building is sleceted ends -->
+
+              <!-- furniture is selected start -->
+              <div *ngIf="furSelected">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Serial Number</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="serialNo" />
+                      <mat-error *ngIf="docForm.get('serialNo').hasError('required')">
+                        Please enter Serial Number!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Type</mat-label>
+                      <input matInput formControlName="type" />
+                      <mat-error *ngIf="docForm.get('type').hasError('required')">
+                        Please enter Type!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput formControlName="description"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <!-- furniture is sleceted ends -->
+
+              <!-- motor vehicle is selected start -->
+              <div *ngIf="vehSelected">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Registration Number</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="regNo" />
+                      <mat-error *ngIf="docForm.get('regNo').hasError('required')">
+                        Please enter Registration Number!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Engine Number</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="engineNo" />
+                      <mat-error *ngIf="docForm.get('engineNo').hasError('required')">
+                        Please enter Engine Number!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Chasis Number</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="chasisNo" />
+                      <mat-error *ngIf="docForm.get('chasisNo').hasError('required')">
+                        Please enter Chasis Number!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Type</mat-label>
+                        <input matInput formControlName="type">
+                        <mat-error *ngIf="docForm.get('type').hasError('required')">
+                          Please enter Type!
+                        </mat-error>
+                      </mat-form-field>
+                      
+                   
+                    </div> -->
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput formControlName="description"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <!-- motor vehicle is sleceted ends -->
+
+              <!-- computers is selected start -->
+              <div *ngIf="compsSelected">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Make</mat-label>
+                      <input matInput class="example-right-align" formControlName="make" />
+                      <mat-error *ngIf="docForm.get('make').hasError('required')">
+                        Please enter Make!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Serial Number</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="serialNo" />
+                      <mat-error *ngIf="docForm.get('serialNo').hasError('required')">
+                        Please enter Serial Number!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3"></div>
+
+                  <!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                      <mat-form-field class="example-full-width mb-3" appearance="outline">
+                        <mat-label>Type</mat-label>
+                        <input matInput formControlName="type">
+                        <mat-error *ngIf="docForm.get('type').hasError('required')">
+                          Please enter Type!
+                        </mat-error>
+                      </mat-form-field>
+                      
+                   
+                    </div> -->
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput formControlName="description"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <!-- computers is selected ends -->
+
+              <!-- computer accessories is selected start -->
+              <div *ngIf="compsASelected">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Model</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="model" />
+                      <mat-error *ngIf="docForm.get('model').hasError('required')">
+                        Please enter Model!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Serial Number</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="serialNo" />
+                      <mat-error *ngIf="docForm.get('serialNo').hasError('required')">
+                        Please enter Serial Number!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Make</mat-label>
+                      <input matInput class="example-right-align" formControlName="make" />
+                      <mat-error *ngIf="docForm.get('make').hasError('required')">
+                        Please enter Make!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput formControlName="description"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <!-- computer accessories is selected ends -->
+
+              <!-- Equipment is selected start -->
+              <div *ngIf="equipSelected">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Make</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="make" />
+                      <mat-error *ngIf="docForm.get('make').hasError('required')">
+                        Please enter Make!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput formControlName="description"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <!-- Equipment is selected ends -->
+
+              <!-- Biological is selected start -->
+              <div class="row" *ngIf="bioSelected">
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>LR Number</mat-label>
+                      <input matInput type="number" class="example-right-align" formControlName="LRno" />
+                      <mat-error *ngIf="docForm.get('LRno').hasError('required')">
+                        Please enter LR Number!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Type</mat-label>
+                      <input matInput class="example-right-align" formControlName="type" />
+                      <mat-error *ngIf="docForm.get('type').hasError('required')">
+                        Please enter Type!
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-3"></div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Description</mat-label>
+                      <textarea matInput formControlName="description"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Biological is selected ends -->
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-label>Upload Files</mat-label>
+                  <app-file-upload (change)="selectFiles($event)"></app-file-upload>
+                </div>
+              </div>
+              <div class="row">
+                <div *ngFor="let progressInfo of progressInfos" class="mb-2">
+                  <span>{{ progressInfo.fileName }}</span>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-info" role="progressbar"
+                      attr.aria-valuenow="{{ progressInfo.value }}" aria-valuemin="0" aria-valuemax="100"
+                      [ngStyle]="{ width: progressInfo.value + '%' }">
+                      {{ progressInfo.value }}%
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
+                  <ul *ngFor="let msg of message; let i = index">
+                    <li style="color: black;">{{ msg }}</li>
+                  </ul>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div mat-dialog-action [align]="'end'">
+                    <button class="btn-space" type="button" mat-raised-button color="warn" mat-button
+                      (click)="cancel()">
+                      Cancel
+                    </button>
+                    <button mat-raised-button type="submit" color="primary" [disabled]="!docForm.valid"
+                      (click)="validate()">Submit</button>
+                    <!-- [disabled]="!formIsValid.valid " -->
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

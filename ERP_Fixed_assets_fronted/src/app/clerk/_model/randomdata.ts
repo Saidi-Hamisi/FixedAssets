@@ -1,0 +1,36 @@
+const randomAccountData = [
+  {
+    period: 1,
+    date: '2023-01-01',
+    openingBalance: 100000,
+    leasePayment: 20000,
+    discount: 5000,
+    closingBalLease: 80000,
+    bal: 50000,
+    depreciation: 10000,
+    closingBalRight: 40000,
+  },
+  {
+    period: 2,
+    date: '2023-02-01',
+    openingBalance: 80000,
+    leasePayment: 20000,
+    discount: 4000,
+    closingBalLease: 60000,
+    bal: 45000,
+    depreciation: 9000,
+    closingBalRight: 36000,
+  },
+  {
+    period: 3,
+    date: '2023-03-01',
+    openingBalance: 60000,
+    leasePayment: 20000,
+    discount: 3000,
+    closingBalLease: 40000,
+    bal: 40000,
+    depreciation: 8000,
+    closingBalRight: 32000,
+  },
+  // Add more objects as needed
+];

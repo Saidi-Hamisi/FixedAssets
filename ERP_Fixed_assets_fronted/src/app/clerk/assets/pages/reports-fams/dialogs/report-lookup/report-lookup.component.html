@@ -1,0 +1,153 @@
+<div class="addContainer">
+  <div class="modalHeader">
+      <div class="editRowModal">
+          <div class="modalHeader clearfix">
+              <img src="assets/images/em.jpg" alt="avatar" height="40px" width="40px">
+              <div class="modal-about">
+                  <div class="font-weight-bold p-t-5 ms-2 me-2 font-17">
+                      Enter {{title}} parameters
+                  </div>
+              </div>
+          </div>
+      </div>
+      <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+          <mat-icon>close</mat-icon>
+      </button>
+  </div>
+  <div mat-dialog-content>
+
+      <form class="register-form m-4" [formGroup]="generalForm" *ngIf="general">
+          <div class="row">
+            
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Select asset</mat-label>
+                    <input matInput formControlName="assetName" />
+
+                    <mat-icon matSuffix (click)="assetsLookup()">search</mat-icon>
+                    <mat-error *ngIf="generalForm.get('assetName').hasError('required') &&
+                    generalForm.get('assetName').touched
+                      ">
+                      Please select asset</mat-error>
+                  </mat-form-field>
+              </div>
+          </div>
+
+          
+
+      </form>
+      <form class="register-form m-4" [formGroup]="balanceSheetForm" *ngIf="balanceSheet">
+        <div class="row">
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Select Lease</mat-label>
+                  <input matInput formControlName="leaseType" />
+
+                  <mat-icon matSuffix (click)="leasesLookup()">search</mat-icon>
+                  <mat-error *ngIf="
+                  balanceSheetForm.get('leaseType').hasError('required') &&
+                  balanceSheetForm.get('leaseType').touched
+                    ">
+                    Please select lease</mat-error>
+                </mat-form-field>
+       
+
+            </div>
+            
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Lease Term(s)</mat-label>
+                  <input matInput formControlName="leaseTerm" readonly/>
+                  <mat-error *ngIf="
+                  balanceSheetForm.get('leaseTerm').hasError('required') &&
+                  balanceSheetForm.get('leaseTerm').touched
+                    ">
+                    Please select lease term</mat-error>
+                </mat-form-field>
+       
+
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Enter Term</mat-label>
+                  <input matInput formControlName="periodId" />
+                  <mat-error *ngIf="
+                  balanceSheetForm.get('periodId').hasError('required') &&
+                  balanceSheetForm.get('periodId').touched
+                    ">
+                    Please enter period</mat-error>
+                </mat-form-field>
+       
+
+            </div>
+        </div>
+
+        
+
+    </form>
+    <form class="register-form m-4" [formGroup]="generalLeaseForm" *ngIf="generalLease">
+        <div class="row">
+          
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+
+                <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Lease Type</mat-label>
+                    <mat-select formControlName="leaseType" required>
+                      <mat-option *ngFor="let type of leaseTypes" [value]="type.name">{{ type.name }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="generalLeaseForm.get('leaseType').hasError('required')">Lease Type is
+                      required</mat-error>
+                  </mat-form-field>
+
+                <!-- <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Lease Type type</mat-label>
+                    <mat-select formControlName="leaseStatus" required>
+                      <mat-option *ngFor="let leaseType of leaseTypes">
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="
+                    generalLeaseForm.get('leaseStatus').hasError('required')
+                      ">
+                      Lease Type is required
+                    </mat-error>
+                  </mat-form-field> -->
+
+                <!-- <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Select Lease Status</mat-label>
+
+                  <mat-select formControlName="leaseStatus" required>
+                    <mat-option *ngFor="let leaseStatus of leaseTypes" [value]="leaseStatus.name">
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="
+                  generalLeaseForm.get('leaseStatus').hasError('required') &&
+                  generalLeaseForm.get('leaseStatus').touched
+                    ">
+                    Please select asset</mat-error>
+                </mat-form-field>
+        -->
+
+            </div>
+        </div>
+
+        
+
+    </form>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row" align="end">
+                <button (click)="generateReport()" mat-raised-button color="primary" [class.auth-spinner]="loading" [disabled]="loading">
+                    Process
+                </button>
+                <button mat-raised-button color="warn" tabindex="-1" (click)="onNoClick()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+  </div>
+</div>
